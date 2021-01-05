@@ -28,18 +28,18 @@ namespace WebApi
 
                 try
                 {
-                    //Database Migration
-                    var appDbContext = services.GetRequiredService<ApplicationDbContext>();
-                    appDbContext.Database.Migrate();
+                    ////Automatic database migration, First we need to create database migration by command line the it will work 
+                    //var appDbContext = services.GetRequiredService<ApplicationDbContext>();
+                    //appDbContext.Database.Migrate();
 
 
                     ////var identityContext = services.GetRequiredService<IdentityDbContext>();
                     ////identityContext.Database.Migrate();
 
 
-                    //Database seeding
-                    var mediator = services.GetRequiredService<IMediator>();
-                    await mediator.Send(new SeedTestDataCommand(), CancellationToken.None);
+                    ////Database seeding
+                    //var mediator = services.GetRequiredService<IMediator>();
+                    //await mediator.Send(new SeedTestDataCommand(), CancellationToken.None);
 
                 }
                 catch (Exception ex)

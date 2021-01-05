@@ -12,7 +12,7 @@ namespace Infrastructure.Configuration
 
         public string ApiDbConnectionString { get; }
 
-        public string AspNetIdentityDbConnection { get; }
+       // public string AspNetIdentityDbConnection { get; }
 
         public List<string> DbProviderList { get; } = new List<string>();
 
@@ -27,7 +27,7 @@ namespace Infrastructure.Configuration
                 throw new ArgumentNullException(nameof(configuration));
             DbProvider= configuration.GetValue<string>(nameof(DbProvider));
             ApiDbConnectionString = configuration.GetValue<string>(nameof(ApiDbConnectionString));
-            AspNetIdentityDbConnection = configuration.GetValue<string>(nameof(AspNetIdentityDbConnection));
+           // AspNetIdentityDbConnection = configuration.GetValue<string>(nameof(AspNetIdentityDbConnection));
             ValidateConfiguration();
         }
 
@@ -42,8 +42,8 @@ namespace Infrastructure.Configuration
             if (string.IsNullOrWhiteSpace(this.ApiDbConnectionString))
                 throw new InvalidConfigurationException("ApiDbConnectionString cannot be null or empty");
 
-            if (string.IsNullOrWhiteSpace(this.AspNetIdentityDbConnection))
-                throw new InvalidConfigurationException("AspNetIdentityDbConnection cannot be null or empty");
+            //if (string.IsNullOrWhiteSpace(this.AspNetIdentityDbConnection))
+            //    throw new InvalidConfigurationException("AspNetIdentityDbConnection cannot be null or empty");
 
         }      
 

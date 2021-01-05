@@ -36,7 +36,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ApplicationConfiguration appConfiguration = this.ValidateApplicationConfiguration(services);
+            ApplicationConfiguration appConfiguration = ValidateApplicationConfiguration(services);
 
             services.AddApplication();
             services.AddInfrastructure();

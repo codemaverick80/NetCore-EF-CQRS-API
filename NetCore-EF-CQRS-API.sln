@@ -11,11 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{A444A82D-F85D-45D3-B809-B07D525000D3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0FDEDB7E-E108-4FEC-89F4-F2DAC5B9F31F}"
-	ProjectSection(SolutionItems) = preProject
-		Help.txt = Help.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreLayer", "CoreLayer", "{800DAFA1-6EC3-42F8-9F56-90063D9C8AFA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureLayer", "InfrastructureLayer", "{C326500C-3B74-440A-93E5-94C71EE499DA}"
