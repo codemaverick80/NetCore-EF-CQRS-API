@@ -1,11 +1,13 @@
 using Application;
 using Application.Common.Interfaces;
 using Infrastructure;
+using Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApi.Common.Extensions;
 using WebApi.Common.Middleware;
 using WebApi.Services;
 
@@ -21,12 +23,26 @@ namespace WebApi
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
 
+
+        public ApplicationConfiguration ValidateApplicationConfiguration(IServiceCollection services)
+        {
+            ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(Configuration);
+            services.AddSingleton<IApplicationConfiguration>(applicationConfiguration);
+            return applicationConfiguration;
+        }
+
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ApplicationConfiguration appConfiguration = this.ValidateApplicationConfiguration(services);
+
             services.AddApplication();
-            services.AddInfrastructure(Configuration, Environment);
-            
+            services.AddInfrastructure();
+            services.AddDatabases(appConfiguration);
+            //services.AddAspNetIdentityDatabase(appConfiguration); // For Asp.Net core Identity system
+
             services.AddControllers();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
@@ -48,9 +64,10 @@ namespace WebApi
             #endregion
 
 
-
-
         }
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
