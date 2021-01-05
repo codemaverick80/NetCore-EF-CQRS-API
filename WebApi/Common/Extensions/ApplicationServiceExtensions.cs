@@ -37,7 +37,7 @@ namespace WebApi.Common.Extensions
                     return builder => builder.UseSqlite(dbConnectionString, options => options.MigrationsAssembly(migrationAssembly));
                 case "MySql":
                     return builder => builder.UseMySql(dbConnectionString, options => options.MigrationsAssembly(migrationAssembly));
-                case "PostreSql":
+                //case "PostreSql":
                 case "PostgreSql":
                     return builder => builder.UseNpgsql(dbConnectionString, options => options.MigrationsAssembly(migrationAssembly));
                 default:

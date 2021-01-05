@@ -29,8 +29,8 @@ namespace WebApi
                 try
                 {
                     ////Automatic database migration, First we need to create database migration by command line the it will work 
-                    //var appDbContext = services.GetRequiredService<ApplicationDbContext>();
-                    //appDbContext.Database.Migrate();
+                    var appDbContext = services.GetRequiredService<ApplicationDbContext>();
+                    appDbContext.Database.Migrate();
 
 
                     ////var identityContext = services.GetRequiredService<IdentityDbContext>();
@@ -38,8 +38,8 @@ namespace WebApi
 
 
                     ////Database seeding
-                    //var mediator = services.GetRequiredService<IMediator>();
-                    //await mediator.Send(new SeedTestDataCommand(), CancellationToken.None);
+                    var mediator = services.GetRequiredService<IMediator>();
+                    await mediator.Send(new SeedTestDataCommand(), CancellationToken.None);
 
                 }
                 catch (Exception ex)
