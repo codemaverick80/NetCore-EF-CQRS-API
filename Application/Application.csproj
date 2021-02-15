@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="CQRS\Albums\Commands\" />
-    <Folder Include="CQRS\Albums\Queries\" />
     <Folder Include="CQRS\Artists\Commands\Delete\" />
     <Folder Include="CQRS\Tracks\Commands\" />
     <Folder Include="CQRS\Tracks\Queries\" />
@@ -18,6 +17,7 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
   </ItemGroup>
 

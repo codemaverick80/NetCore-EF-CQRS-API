@@ -6,6 +6,8 @@ using System.Text;
 namespace Application.CQRS.Artists
 {
    public class ArtistResourceParameters : PagingParameters
-    {
-    }
+   {
+        public string Filter { get; set; }
+
+   }
 }
