@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using WebApi.Models;
 
 namespace WebApi.Common.Middleware
-{
-    /*
-     * Handling Exceptions using middleware
-     */
+{   
+    /// <summary>
+    /// Global exception handling using middleware
+    /// </summary>
     public class CustomExceptionHandlerMiddleware
     {
         private readonly RequestDelegate next;
@@ -43,31 +43,19 @@ namespace WebApi.Common.Middleware
             switch (exception)
             {
                 case BadRequestException badRequestException:
-                    code = HttpStatusCode.BadRequest;
-                    //context.Response.ContentType = "application/json";
-                    //context.Response.StatusCode = (int)code;
-                    //result = BadRequestMessage(exception, incidentId.ToString());
+                    code = HttpStatusCode.BadRequest;                  
                     break;
                 case InvalidGuidException invalidGuidException:
-                    code = HttpStatusCode.BadRequest;
-                    //context.Response.ContentType = "application/json";
-                    //context.Response.StatusCode = (int)code;
-                    //result = BadRequestMessage(exception, incidentId.ToString());
+                    code = HttpStatusCode.BadRequest;                
                     break;
                 case NotFoundException notFoundException:
-                    code = HttpStatusCode.NotFound;
-                    //context.Response.ContentType = "application/json";
-                    //context.Response.StatusCode = (int)code;                   
+                    code = HttpStatusCode.NotFound;                         
                     break;
                 case RequestValidationException validationException:
-                    code = HttpStatusCode.BadRequest;                   
-                    //context.Response.ContentType = "application/json";
-                    //context.Response.StatusCode = (int)code;
-                    //result =BadRequestMessage(exception,incidentId.ToString());
+                    code = HttpStatusCode.BadRequest; 
                     break;
                 case DeleteFailureException deleteFailureException:
-                    code = HttpStatusCode.BadRequest;
-                    //result = validationException.Message;
+                    code = HttpStatusCode.BadRequest;                   
                     break;                
             }
 
@@ -77,7 +65,7 @@ namespace WebApi.Common.Middleware
             if (code == HttpStatusCode.InternalServerError)
             {
                 //result = JsonConvert.SerializeObject(new { ErrorMessage = "Oops! Something went wrong at servie side", incidentId });
-                ////TODO : Log error in DB or centeralized error looging system for support.
+                // TODO : Log error in DB or centeralized error looging system for support.
                 er.SystemError = new List<SystemError>();
                 SystemError se = new SystemError()
                 {
@@ -92,21 +80,7 @@ namespace WebApi.Common.Middleware
             else
             {
                 var appException = exception as ApplicationBaseException;
-
-                ////List<string> errors = new List<string>();                
-                ////if (appException.Errors.Count > 0)
-                ////{
-                ////    foreach (var item in appException.Errors)
-                ////    {
-                ////       // errors.Add($"{item.Key} {item.Value[0]}");
-                ////        errors.Add($"{item.Value[0]}");
-                ////    }
-                ////}
-
-                ////result = JsonConvert.SerializeObject(new { ErrorMessage = exception.Message,Errors=errors, incidentId});
-                //////TODO : Log error in DB or centeralized error looging system for support.
-
-
+                // TODO : Log error in DB or centeralized error looging system for support.
                 er.SystemError = new List<SystemError>();
                 if (appException.Errors.Count > 0)
                 {
@@ -163,9 +137,14 @@ namespace WebApi.Common.Middleware
 
     }
 
-    // Register this middleware inside Configure method (startup.cs) -  app.UseCustomExceptionHandler();
+    // Register this middleware inside Configure method (startup.cs) -  app.UseCustomExceptionHandler();   
     public static class CustomExceptionHandlerMiddlewareExtensions
     {
+        /// <summary>
+        /// Global Exception Handling Middleware
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CustomExceptionHandlerMiddleware>();

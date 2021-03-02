@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet("GetAlbums")]
+        [HttpGet(Name ="GetAlbums")]
 
         public async Task<ActionResult<IEnumerable<GetAlbumsResponse>>> Get([FromQuery] AlbumResourceParameters resourceParameters)
         {
