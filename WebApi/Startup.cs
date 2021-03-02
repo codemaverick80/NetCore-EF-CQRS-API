@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApi.Common.Extensions;
+using WebApi.Common.Filters;
 using WebApi.Common.Middleware;
 using WebApi.Services;
 
@@ -43,7 +44,10 @@ namespace WebApi
             services.AddDatabases(appConfiguration);
             //services.AddAspNetIdentityDatabase(appConfiguration); // For Asp.Net core Identity system
 
-            services.AddControllers();
+            services.AddControllers(options=>
+            {
+                options.Filters.Add(typeof(ModelValidationActionFilter));
+            });
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 

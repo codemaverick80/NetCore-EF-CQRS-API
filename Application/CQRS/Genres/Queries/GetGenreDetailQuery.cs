@@ -34,8 +34,13 @@ namespace Application.CQRS.Genres.Queries
 
         public async Task<GenreDetailResponse> Handle(GetGenreDetailQuery request, CancellationToken cancellationToken)
         {
-            var entity = await context.Genre
-                .FindAsync(Guid.Parse(request.Id));
+
+            if (!Guid.TryParse(request.Id, out var newGuid))
+            {
+                throw new InvalidGuidException(nameof(Genre), request.Id);
+            }
+
+            var entity = await context.Genre.FindAsync(Guid.Parse(request.Id));
 
             if (entity == null)
             {
