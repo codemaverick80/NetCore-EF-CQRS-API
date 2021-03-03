@@ -66,19 +66,21 @@ namespace WebApi.Common.Filters
 
             if (!isHeaderValid)
             {
+                string IncidentId = Guid.NewGuid().ToString();
                 ApiErrorResponse er = new ApiErrorResponse();
                 er.SystemError = new List<SystemError>();
                 foreach (var item in validationResults)
                 {
                     SystemError se = new SystemError()
                     {
-                        CreatorApplicatioId = "Music-API", // Web Api Id (name)
+                        CreatorApplicatioId = "Music-API", 
                         Code = "invalid Headers",
                         Message = item.ErrorMessage
                     };
                     er.SystemError.Add(se);
                 }
-                context.Result = new BadRequestObjectResult(er);
+                //context.Result = new BadRequestObjectResult(er);
+                context.Result =new BadRequestObjectResult(JsonSerializer.Serialize(new { IncidentId, ErrorMessage = "Request headers validation error", Errors = er }));
                 return;
             }
 

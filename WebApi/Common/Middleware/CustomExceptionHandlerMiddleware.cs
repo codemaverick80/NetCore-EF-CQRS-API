@@ -36,7 +36,7 @@ namespace WebApi.Common.Middleware
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {            
             var code = HttpStatusCode.InternalServerError;
-            var incidentId = Guid.NewGuid();
+            var IncidentId = Guid.NewGuid();
             string result;
             ApiErrorResponse er = new ApiErrorResponse();
 
@@ -74,7 +74,7 @@ namespace WebApi.Common.Middleware
                     Message = "Oops! Something went wrong at servie side"
                 };
                 er.SystemError.Add(se);
-                result = JsonConvert.SerializeObject(new { ErrorMessage = "Oops! Something went wrong at servie side", incidentId });
+                result = JsonConvert.SerializeObject(new { IncidentId, ErrorMessage = "Oops! Something went wrong at servie side" });
 
             }
             else
@@ -106,7 +106,7 @@ namespace WebApi.Common.Middleware
                     er.SystemError.Add(se);
                 }
                 
-                result = JsonConvert.SerializeObject(new { ErrorMessage = exception.Message, Errors = er, incidentId });
+                result = JsonConvert.SerializeObject(new { IncidentId, ErrorMessage = exception.Message, Errors = er });
             }
             //context.Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = exception.Reason;            
             return context.Response.WriteAsync(result);
@@ -131,7 +131,7 @@ namespace WebApi.Common.Middleware
                     er.SystemError.Add(se);
                 }
             }
-           return JsonConvert.SerializeObject(new { ErrorMessage = exception.Message, Errors = er, incidentId });
+           return JsonConvert.SerializeObject(new { IncidentId=incidentId, ErrorMessage = exception.Message, Errors = er });
         }
 
 
