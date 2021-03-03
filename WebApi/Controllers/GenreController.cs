@@ -2,10 +2,12 @@
 using Application.CQRS.Genres;
 using Application.CQRS.Genres.Commands.Create;
 using Application.CQRS.Genres.Commands.Delete;
+using Application.CQRS.Genres.Commands.Patch;
 using Application.CQRS.Genres.Commands.Update;
 using Application.CQRS.Genres.Queries;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,7 +20,6 @@ namespace WebApi.Controllers
 {
     public class GenreController : BaseController
     {
-
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor _context;
         private readonly ILogger<GenreController> _logger;
@@ -54,11 +55,11 @@ namespace WebApi.Controllers
         //}
 
 
-        [HttpGet(Name ="GetGenres")]
+        [HttpGet(Name = "GetGenres")]
         public async Task<ActionResult<IEnumerable<GetGenresResponse>>> GetAll([FromQuery] GenreResourceParameters resourceParams)
         {
             _logger.LogInformation("GetGenres endpoing ...");
-            var result= await Mediator.Send(new GetGenresQuery() { GenreResourceParameters = resourceParams });
+            var result = await Mediator.Send(new GetGenresQuery() { GenreResourceParameters = resourceParams });
             // CreatePaginationMetaData(result,resourceParams);
             //Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(PaginationMetaData.CreatePaginationMetaData(result, resourceParams, "GetGenres", Url,_context)));
 
@@ -66,34 +67,56 @@ namespace WebApi.Controllers
             return Ok(mapper.Map<IEnumerable<GetGenresResponse>>(result));
         }
 
-        [HttpGet("{id}")]
+        // [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetGenre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GenreDetailResponse>> Get(string id)
         {
             _logger.LogInformation("GetGenre by id endpoing ...");
-            var vm = await Mediator.Send(new GetGenreDetailQuery { Id = id });
-            return Ok(vm);
+            var response = await Mediator.Send(new GetGenreDetailQuery { Id = id });
+            return Ok(response);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Post([FromBody] CreateGenreCommand request)
-        {
-           var genreId= await Mediator.Send(request);
-           return Ok(genreId);
+        { 
+            var id = await Mediator.Send(request);
+            return CreatedAtRoute(
+                "GetGenre", //RoutName
+                new { id = id }, // location header (https://localhost:5001/api/Genre/57d26b23-ea99-41fe-aee5-87529dc2ae23)
+                new { id = id, data = request } //response body
+                );
+
+            //return Ok(genreId);
         }
 
-
+        //TODO: PUT will update full entity
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Update([FromBody]UpdateGenreCommand request)
-        {
+        { 
             await Mediator.Send(request);
             return NoContent();
         }
 
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> PartialGenreUpdate(string id, JsonPatchDocument<PatchGenreCommand> request)
+        {
+            var genreFromDb = await Mediator.Send(new GetGenreDetailQuery { Id = id });
+            PatchGenreCommand patchedObj = new PatchGenreCommand() 
+            {
+                Id = genreFromDb.GenreDetail.Id.ToString(), 
+                Name = genreFromDb.GenreDetail.Name, 
+                Description = genreFromDb.GenreDetail.Description 
+            };
+            request.ApplyTo(patchedObj);
+            await Mediator.Send(patchedObj);
+            return NoContent();
+        }
 
         // TODO : DO NOT Expose delete enpoint but in this demo we will
         [HttpDelete("{id}")]
@@ -103,8 +126,6 @@ namespace WebApi.Controllers
             await Mediator.Send(new DeleteGenreCommand { Id = id });
             return NoContent();
         }
-
-
 
 
         //public enum ResourceUriType

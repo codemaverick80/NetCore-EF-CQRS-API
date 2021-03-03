@@ -34,7 +34,6 @@ namespace Application.CQRS.Genres.Queries
 
         public async Task<GenreDetailResponse> Handle(GetGenreDetailQuery request, CancellationToken cancellationToken)
         {
-
             if (!Guid.TryParse(request.Id, out var newGuid))
             {
                 throw new InvalidGuidException(nameof(Genre), request.Id);

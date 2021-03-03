@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.CQRS.Genres.Commands.Update
+namespace Application.CQRS.Genres.Commands.Patch
 {
-   public class UpdateGenreCommandValidator: AbstractValidator<UpdateGenreCommand>
+   public class PatchGenreCommandValidator:AbstractValidator<PatchGenreCommand>
     {
-        public UpdateGenreCommandValidator()
+        public PatchGenreCommandValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Genre id must not be empty while updating");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Genre name must not be empty while updating");

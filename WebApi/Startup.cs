@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using WebApi.Common.Extensions;
 using WebApi.Common.Filters;
 using WebApi.Common.Middleware;
@@ -44,10 +45,17 @@ namespace WebApi
             services.AddDatabases(appConfiguration);
             //services.AddAspNetIdentityDatabase(appConfiguration); // For Asp.Net core Identity system
 
-            services.AddControllers(options=>
+            services.AddControllers(options =>
             {
+                options.ReturnHttpNotAcceptable = true;
                 options.Filters.Add(typeof(ModelValidationActionFilter));
+            })
+            //START - Added NewtonsoftJson for PATCH request
+            .AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+            // END - Added NewtonsoftJson for PATCH request;
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 

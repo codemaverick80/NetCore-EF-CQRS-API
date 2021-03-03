@@ -36,7 +36,6 @@ namespace Application.Common.PipelineBehaviours
             {
                // var error = string.Join("\r\n", validationFailures); 
                 throw new RequestValidationException("Request validation failures", validationFailures);
-
             }
 
             return next(); // next thing in the pipleline
