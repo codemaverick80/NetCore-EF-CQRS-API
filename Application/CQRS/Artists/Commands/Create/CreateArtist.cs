@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Artists.Commands.Create
 {
-    public class CreateArtistCommand : IRequest<string>
+    public class CreateArtist : IRequest<string>
     {
         public string Name { get; set; }
         public string YearActive { get; set; }
@@ -22,17 +22,17 @@ namespace Application.CQRS.Artists.Commands.Create
     }
 
 
-    public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand,string>
+    public class CreateArtistHandler : IRequestHandler<CreateArtist,string>
     {
 
         private readonly IApplicationDbContext _context;
 
-        public CreateArtistCommandHandler(IApplicationDbContext context)
+        public CreateArtistHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<string> Handle(CreateArtistCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateArtist request, CancellationToken cancellationToken)
         {
             var id = Guid.NewGuid();
             var entity = new Artist

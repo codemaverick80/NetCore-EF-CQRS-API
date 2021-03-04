@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Application.CQRS.Artists.Queries
 {
     #region "Query Request"
-    public class GetArtistsQuery: IRequest<PagedList<Artist>>
+    public class GetArtists: IRequest<PagedList<Artist>>
     {
         public ArtistResourceParameters ResourceParameters { get; set; }
 
@@ -23,17 +23,14 @@ namespace Application.CQRS.Artists.Queries
     #endregion
 
     #region "Query Request Handler"
-    public class GetArtistQueryHandler : IRequestHandler<GetArtistsQuery, PagedList<Artist>>
+    public class GetArtistHandler : IRequestHandler<GetArtists, PagedList<Artist>>
     {
-
         private readonly IApplicationDbContext context;
-
-        public GetArtistQueryHandler(IApplicationDbContext context)
+        public GetArtistHandler(IApplicationDbContext context)
         {
             this.context = context;
         }
-
-        public async Task<PagedList<Artist>> Handle(GetArtistsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<Artist>> Handle(GetArtists request, CancellationToken cancellationToken)
         {
             var query = context.Artist as IQueryable<Artist>;
             query = query.Select(a => new Artist { Id = a.Id, ArtistName = a.ArtistName, YearActive = a.YearActive, Biography = a.Biography });

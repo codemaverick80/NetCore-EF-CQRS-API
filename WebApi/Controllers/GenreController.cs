@@ -67,6 +67,9 @@ namespace WebApi.Controllers
             return Ok(mapper.Map<IEnumerable<GetGenresResponse>>(result));
         }
 
+
+
+
         // [HttpGet("{id}")]
         [HttpGet("{id}", Name = "GetGenre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -77,6 +80,9 @@ namespace WebApi.Controllers
             var response = await Mediator.Send(new GetGenreDetailQuery { Id = id });
             return Ok(response);
         }
+
+
+
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -93,6 +99,9 @@ namespace WebApi.Controllers
             //return Ok(genreId);
         }
 
+
+
+
         //TODO: PUT will update full entity
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -102,21 +111,33 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+
+
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> PartialGenreUpdate(string id, JsonPatchDocument<PatchGenreCommand> request)
         {
             var genreFromDb = await Mediator.Send(new GetGenreDetailQuery { Id = id });
-            PatchGenreCommand patchedObj = new PatchGenreCommand() 
+            PatchGenreCommand genreToPatch = new PatchGenreCommand()
             {
-                Id = genreFromDb.GenreDetail.Id.ToString(), 
-                Name = genreFromDb.GenreDetail.Name, 
-                Description = genreFromDb.GenreDetail.Description 
+                Id = genreFromDb.GenreDetail.Id.ToString(),
+                Name = genreFromDb.GenreDetail.Name,
+                Description = genreFromDb.GenreDetail.Description
             };
-            request.ApplyTo(patchedObj);
-            await Mediator.Send(patchedObj);
+
+            // add validation
+            request.ApplyTo(genreToPatch, ModelState);
+            if (!TryValidateModel(genreToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }          
+
+            await Mediator.Send(genreToPatch);
             return NoContent();
         }
+
+
+
 
         // TODO : DO NOT Expose delete enpoint but in this demo we will
         [HttpDelete("{id}")]

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Artists.Commands.Update
 {
-    public class UpdateArtistCommand : IRequest
+    public class UpdateArtist : IRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -22,16 +22,16 @@ namespace Application.CQRS.Artists.Commands.Update
 
     }
 
-    public class UpdateArtistCommandHandler : IRequestHandler<UpdateArtistCommand>
+    public class UpdateArtistHandler : IRequestHandler<UpdateArtist>
     {
         private readonly IApplicationDbContext _context;
 
-        public UpdateArtistCommandHandler(IApplicationDbContext context)
+        public UpdateArtistHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public  async Task<Unit> Handle(UpdateArtistCommand request, CancellationToken cancellationToken)
+        public  async Task<Unit> Handle(UpdateArtist request, CancellationToken cancellationToken)
         {
             bool isValidGuid = Guid.TryParse(request.Id, out _);
             if (!isValidGuid)

@@ -26,7 +26,7 @@
         [HttpGet(Name = "GetArtists")]
         public async Task<ActionResult<IEnumerable<GetArtistsReponse>>> GetAll([FromQuery] ArtistResourceParameters resourceParameters)
         {
-            var result = await Mediator.Send(new GetArtistsQuery() { ResourceParameters = resourceParameters });
+            var result = await Mediator.Send(new GetArtists() { ResourceParameters = resourceParameters });
 
             PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetArtists", Url, httpContextAccessor);
 
@@ -38,13 +38,13 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ArtistDetailResponse>> Get(string id)
         {
-            return Ok(await Mediator.Send(new GetArtistDetailQuery() { Id = id }));
+            return Ok(await Mediator.Send(new GetArtistDetail() { Id = id }));
         }              
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Create([FromBody] CreateArtistCommand request)
+        public async Task<ActionResult> Create([FromBody] CreateArtist request)
         {
             var artistid =await Mediator.Send(request);
             return Ok(artistid);
@@ -53,7 +53,7 @@
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Update([FromBody] UpdateArtistCommand request)
+        public async Task<ActionResult> Update([FromBody] UpdateArtist request)
         {
             await Mediator.Send(request);
             return NoContent();

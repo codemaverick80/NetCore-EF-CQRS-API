@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Artists.Queries
 {
-    public class GetArtistDetailQuery: IRequest<ArtistDetailResponse>
+    public class GetArtistDetail: IRequest<ArtistDetailResponse>
     {
         public string Id { get; set; }
 
     }
 
-    public class GetArtistDetailQueryHandler : IRequestHandler<GetArtistDetailQuery, ArtistDetailResponse>
+    public class GetArtistDetailHandler : IRequestHandler<GetArtistDetail, ArtistDetailResponse>
     {
         private readonly IApplicationDbContext dbContext;
 
         private readonly IMapper mapper;
-        public GetArtistDetailQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetArtistDetailHandler(IApplicationDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
         }
 
-        public async Task<ArtistDetailResponse> Handle(GetArtistDetailQuery request, CancellationToken cancellationToken)
+        public async Task<ArtistDetailResponse> Handle(GetArtistDetail request, CancellationToken cancellationToken)
         {
             bool isValidGuid = Guid.TryParse(request.Id, out _);
             if (!isValidGuid)
