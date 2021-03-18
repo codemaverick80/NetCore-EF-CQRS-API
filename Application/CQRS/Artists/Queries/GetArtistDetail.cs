@@ -1,16 +1,15 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using Application.Common.Mappings;
-using AutoMapper;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Artists.Queries
+﻿namespace Application.CQRS.Artists.Queries
 {
-    public class GetArtistDetail: IRequest<ArtistDetailResponse>
+    using Application.Common.Exceptions;
+    using Application.Common.Interfaces;
+    using Application.Common.Mappings;
+    using AutoMapper;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class GetArtistDetail : IRequest<ArtistDetailResponse>
     {
         public string Id { get; set; }
 
@@ -32,9 +31,9 @@ namespace Application.CQRS.Artists.Queries
             bool isValidGuid = Guid.TryParse(request.Id, out _);
             if (!isValidGuid)
             {
-                throw new InvalidGuidException(nameof(Artist),request.Id);
+                throw new InvalidGuidException(nameof(Artist), request.Id);
             }
-            var entity =await dbContext.Artist.FindAsync(Guid.Parse(request.Id));
+            var entity = await dbContext.Artist.FindAsync(Guid.Parse(request.Id));
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Artist), request.Id);

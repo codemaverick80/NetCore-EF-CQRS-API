@@ -1,14 +1,10 @@
-﻿using Application.Common.Interfaces;
-using Common;
-using Infrastructure.Persistence;
-using Infrastructure.Services;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Infrastructure
+﻿namespace Infrastructure
 {
+    using Application.Common.Interfaces;
+    using Common;
+    using Infrastructure.Persistence;
+    using Infrastructure.Services;
+    using Microsoft.Extensions.DependencyInjection;
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)

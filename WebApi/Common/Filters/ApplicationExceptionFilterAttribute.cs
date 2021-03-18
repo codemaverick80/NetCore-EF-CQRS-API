@@ -1,9 +1,8 @@
-﻿using Application.Common.Exceptions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-namespace WebApi.Common.Filters
+﻿namespace WebApi.Common.Filters
 {
+    using Application.Common.Exceptions;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
     /*
      * Handling Exceptions using Exception filter attribute.
      * To use this, just decorate BaseController.cs with [ApplicationExceptionFilter]

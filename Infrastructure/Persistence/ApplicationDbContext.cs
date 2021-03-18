@@ -1,16 +1,15 @@
-﻿using Application.Common.Interfaces;
-using Common;
-using Domain.Common;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Persistence
+﻿namespace Infrastructure.Persistence
 {
+    using Application.Common.Interfaces;
+    using Common;
+    using Domain.Common;
+    using Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         private readonly ICurrentUserService currentUserService;
@@ -26,14 +25,14 @@ namespace Infrastructure.Persistence
             this.currentUserService = currentUserService;
             dateTime = dt;
         }
-       
+
 
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Artist> Artist { get; set; }
         public DbSet<Album> Album { get; set; }
         public DbSet<Track> Track { get; set; }
         public DbSet<ArtistBasicInfo> ArtistBasicInfo { get; set; }
-       
+
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -42,12 +41,12 @@ namespace Infrastructure.Persistence
             {
                 switch (entity.State)
                 {
-                    case EntityState.Added:                        
+                    case EntityState.Added:
                         entity.Entity.CreatedBy = Guid.Parse(currentUserService.UserId);
                         entity.Entity.DateCreated = dateTime.Now;
                         entity.Entity.IsDeleted = false;
                         break;
-                    case EntityState.Modified:                     
+                    case EntityState.Modified:
                         entity.Entity.ModifiedBy = Guid.Parse(currentUserService.UserId);
                         entity.Entity.DateModified = dateTime.Now;
                         entity.Entity.IsDeleted = false;
@@ -55,7 +54,7 @@ namespace Infrastructure.Persistence
                     case EntityState.Deleted:
                         entity.State = EntityState.Modified;
                         entity.Entity.DateModified = dateTime.Now;
-                        entity.Entity.ModifiedBy =Guid.Parse(currentUserService.UserId);
+                        entity.Entity.ModifiedBy = Guid.Parse(currentUserService.UserId);
                         entity.Entity.IsDeleted = true;
                         break;
                 }

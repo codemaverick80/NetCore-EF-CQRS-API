@@ -1,23 +1,20 @@
-﻿using Application.Common;
-using Application.CQRS.Genres;
-using Application.CQRS.Genres.Commands.Create;
-using Application.CQRS.Genres.Commands.Delete;
-using Application.CQRS.Genres.Commands.Patch;
-using Application.CQRS.Genres.Commands.Update;
-using Application.CQRS.Genres.Queries;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Threading.Tasks;
-using WebApi.Common.Helpers;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
+    using Application.CQRS.Genres;
+    using Application.CQRS.Genres.Commands.Create;
+    using Application.CQRS.Genres.Commands.Delete;
+    using Application.CQRS.Genres.Commands.Patch;
+    using Application.CQRS.Genres.Commands.Update;
+    using Application.CQRS.Genres.Queries;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.JsonPatch;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using WebApi.Common.Helpers;
     public class GenreController : BaseController
     {
         private readonly IMapper mapper;

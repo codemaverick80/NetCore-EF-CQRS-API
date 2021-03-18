@@ -1,16 +1,15 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Genres.Commands.Patch
+﻿namespace Application.CQRS.Genres.Commands.Patch
 {
-   public class PatchGenreCommand: IRequest
+    using Application.Common.Exceptions;
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class PatchGenreCommand : IRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }

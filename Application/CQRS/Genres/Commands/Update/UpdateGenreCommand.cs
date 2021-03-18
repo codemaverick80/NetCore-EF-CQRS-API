@@ -1,20 +1,19 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Genres.Commands.Update
+﻿namespace Application.CQRS.Genres.Commands.Update
 {
-    public class UpdateGenreCommand: IRequest
-   {
+    using Application.Common.Exceptions;
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class UpdateGenreCommand : IRequest
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-   }
+    }
 
 
     public class UpdataGenreCommandHandler : IRequestHandler<UpdateGenreCommand>
@@ -40,7 +39,7 @@ namespace Application.CQRS.Genres.Commands.Update
                 throw new NotFoundException(nameof(Genre), request.Id);
             }
 
-            entity.Id =Guid.Parse(request.Id);
+            entity.Id = Guid.Parse(request.Id);
             entity.GenreName = request.Name;
             entity.Description = request.Description;
             await _context.SaveChangesAsync(cancellationToken);

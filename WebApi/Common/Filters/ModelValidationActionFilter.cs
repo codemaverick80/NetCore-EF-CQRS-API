@@ -1,25 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using WebApi.Models;
-using System.Text.Json;
-
-namespace WebApi.Common.Filters
+﻿namespace WebApi.Common.Filters
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Controllers;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using WebApi.Models;
+    using System.Text.Json;
     /*
      * Register this in  ConfigureServices  (startup.cs)     * 
      */
     public class ModelValidationActionFilter : IActionFilter
-    {      
+    {
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
             // Do something before the action executes
-            ValidateRequestHeaders(context); 
+            ValidateRequestHeaders(context);
         }
 
         private void ValidateRequestHeaders(ActionExecutingContext context)
@@ -32,8 +31,8 @@ namespace WebApi.Common.Filters
             var actionDescriptor = (ControllerActionDescriptor)context.ActionDescriptor;
             var controller = actionDescriptor.ControllerName;
             var action = actionDescriptor.ActionName;
-            
-           
+
+
             ApiHeaders requestHeaders = ApiHeaders.GetHeaders(context.HttpContext.Request.Headers);
 
             #region "Log Request Headers & Payload"
@@ -52,7 +51,7 @@ namespace WebApi.Common.Filters
                 // TODO: Log in Database              
 
             }
-            catch {}
+            catch { }
 
             #endregion
 
@@ -73,14 +72,14 @@ namespace WebApi.Common.Filters
                 {
                     SystemError se = new SystemError()
                     {
-                        CreatorApplicatioId = "Music-API", 
+                        CreatorApplicatioId = "Music-API",
                         Code = "invalid Headers",
                         Message = item.ErrorMessage
                     };
                     er.SystemError.Add(se);
                 }
                 //context.Result = new BadRequestObjectResult(er);
-                context.Result =new BadRequestObjectResult(JsonSerializer.Serialize(new { IncidentId, ErrorMessage = "Request headers validation error", Errors = er }));
+                context.Result = new BadRequestObjectResult(JsonSerializer.Serialize(new { IncidentId, ErrorMessage = "Request headers validation error", Errors = er }));
                 return;
             }
 

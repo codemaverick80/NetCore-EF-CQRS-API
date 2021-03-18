@@ -1,12 +1,11 @@
-﻿using Application.Common.Interfaces;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApi.Services
+﻿namespace WebApi.Services
 {
+    using Application.Common.Interfaces;
+    using Microsoft.AspNetCore.Http;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     /*
      * MusicApi datbase System User Info
      * Name: System
@@ -25,7 +24,7 @@ namespace WebApi.Services
             UserId = "7cf50bcb-1070-44bb-8e16-2175a6f39cc3";
             IsAuthenticated = true;
         }
-        public string UserId  {get;}
+        public string UserId { get; }
 
         public bool IsAuthenticated { get; }
     }

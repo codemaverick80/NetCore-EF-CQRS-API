@@ -1,10 +1,9 @@
-﻿using Application.Common;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-
-namespace WebApi.Common.Helpers
+﻿namespace WebApi.Common.Helpers
 {
+    using Application.Common;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Text.Json;
     public class PaginationMetadata
     {
         public int TotalCount { get; set; }
@@ -25,7 +24,7 @@ namespace WebApi.Common.Helpers
     {
         public static void CreatePaginationMetaData<T>(PagedList<T> result, PagingParameters pagingParameters, string routeName, IUrlHelper url, IHttpContextAccessor context)
         {
-            
+
             //var previousPageLink = result.HasPrevious ? CreateGenresResourceUri(pagingParameters, ResourceUriType.PreviousPage,routeName,url) : null;
             //var nextPageLink = result.HasNext ? CreateGenresResourceUri(pagingParameters, ResourceUriType.NextPage, routeName,url) : null;
             var paginationMetadata = new PaginationMetadata()
@@ -36,13 +35,13 @@ namespace WebApi.Common.Helpers
                 TotalPages = result.TotalPages,
                 PreviousPageLink = result.HasPrevious ? CreateGenresResourceUri(pagingParameters, ResourceUriType.PreviousPage, routeName, url) : null,
                 NextPageLink = result.HasNext ? CreateGenresResourceUri(pagingParameters, ResourceUriType.NextPage, routeName, url) : null
-            };            
+            };
             // return paginationMetadata;
             // TODO: Adding X-Pagination to resonse header
-            context.HttpContext.Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));           
+            context.HttpContext.Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
         }
 
-        private static string CreateGenresResourceUri(PagingParameters pagingParameters, ResourceUriType type,string routeName, IUrlHelper Url)
+        private static string CreateGenresResourceUri(PagingParameters pagingParameters, ResourceUriType type, string routeName, IUrlHelper Url)
         {
             switch (type)
             {

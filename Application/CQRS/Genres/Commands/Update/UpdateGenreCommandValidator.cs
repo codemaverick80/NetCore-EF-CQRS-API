@@ -1,11 +1,7 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.CQRS.Genres.Commands.Update
+﻿namespace Application.CQRS.Genres.Commands.Update
 {
-   public class UpdateGenreCommandValidator: AbstractValidator<UpdateGenreCommand>
+    using FluentValidation;
+    public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
     {
         public UpdateGenreCommandValidator()
         {

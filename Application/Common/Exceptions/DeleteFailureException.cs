@@ -1,10 +1,9 @@
-﻿using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Application.Common.Exceptions
+﻿namespace Application.Common.Exceptions
 {
+    using FluentValidation.Results;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     public class DeleteFailureException : ApplicationBaseException
     {
 

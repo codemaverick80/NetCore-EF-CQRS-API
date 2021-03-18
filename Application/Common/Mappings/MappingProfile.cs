@@ -1,14 +1,13 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace Application.Common.Mappings
+﻿namespace Application.Common.Mappings
 {
-   public class MappingProfile: Profile
-   {
+    using AutoMapper;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    public class MappingProfile : Profile
+    {
 
         public MappingProfile()
         {
@@ -30,5 +29,5 @@ namespace Application.Common.Mappings
                 methodInfo?.Invoke(instance, new object[] { this });
             }
         }
-   }
+    }
 }

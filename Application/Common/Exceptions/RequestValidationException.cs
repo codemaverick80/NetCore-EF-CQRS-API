@@ -1,18 +1,17 @@
-﻿using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Application.Common.Exceptions
+﻿namespace Application.Common.Exceptions
 {
+    using FluentValidation.Results;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     public class RequestValidationException : ApplicationBaseException
-    {       
+    {
         public override string Reason => "ValidationException";
 
-        public RequestValidationException(string message) : base(message) {}
+        public RequestValidationException(string message) : base(message) { }
         public RequestValidationException(string message, Exception ex) : base(message, ex) { }
-        public RequestValidationException(string message,List<ValidationFailure> failures) : this(message)
+        public RequestValidationException(string message, List<ValidationFailure> failures) : this(message)
         {
             var propertyNames = failures
                 .Select(e => e.PropertyName)

@@ -1,10 +1,8 @@
-﻿using Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
+    using Domain.Common;
+    using System;
+    using System.Collections.Generic;
     public class Genre : AuditableEntity
     {
         public Genre()
@@ -13,7 +11,7 @@ namespace Domain.Entities
         }
         public Guid Id { get; set; }
         public string GenreName { get; set; }
-        public string? Description { get; set; }   
+        public string? Description { get; set; }
 
         /*Collection Navigation property */
         public ICollection<Album> Albums { get; private set; }

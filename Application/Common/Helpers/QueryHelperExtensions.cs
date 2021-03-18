@@ -1,15 +1,14 @@
-﻿using Domain.Entities;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Common.Helpers
+﻿namespace Application.Common.Helpers
 {
-   public static class QueryHelperExtensions
+    using Domain.Entities;
+    using Microsoft.CodeAnalysis.CSharp.Scripting;
+    using Microsoft.CodeAnalysis.Scripting;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    public static class QueryHelperExtensions
     {
 
         public static async Task<Func<TSource, bool>> FilterExpression<TSource>(string filter)

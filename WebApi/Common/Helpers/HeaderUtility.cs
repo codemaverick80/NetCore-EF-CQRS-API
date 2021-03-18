@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApi.Common.Helpers
+﻿namespace WebApi.Common.Helpers
 {
     public class HeaderUtility
     {
-
-
-    
-            
 
 
     }

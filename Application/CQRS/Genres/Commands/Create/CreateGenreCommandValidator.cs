@@ -1,7 +1,6 @@
-﻿using FluentValidation;
-
-namespace Application.CQRS.Genres.Commands.Create
+﻿namespace Application.CQRS.Genres.Commands.Create
 {
+using FluentValidation;
     public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
     {
         public CreateGenreCommandValidator()

@@ -1,27 +1,26 @@
-using Application.CQRS.SeedDatabase.Commands;
-using Infrastructure.Persistence;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace WebApi
 {
+    using Application.CQRS.SeedDatabase.Commands;
+    using Infrastructure.Persistence;
+    using MediatR;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class Program
     {
         //public static void Main(string[] args)
         public static async Task Main(string[] args)
         {
-           var host= CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
 
 
             #region "DO NOT use in PROD"
-            
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;

@@ -1,17 +1,13 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Infrastructure.Persistence.Configurations
+﻿namespace Infrastructure.Persistence.Configurations
 {
+    using Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     public class ArtistConfiguration : IEntityTypeConfiguration<Artist>
     {
         public void Configure(EntityTypeBuilder<Artist> builder)
-        {        
-            
+        {
+
 
             builder.Property(e => e.Id).HasColumnName("Id");
 
@@ -26,7 +22,7 @@ namespace Infrastructure.Persistence.Configurations
             builder.Property(e => e.LargeThumbnail).HasMaxLength(100);
 
             builder.Property(e => e.SmallThumbnail).HasMaxLength(100);
-                                 
+
 
 
 

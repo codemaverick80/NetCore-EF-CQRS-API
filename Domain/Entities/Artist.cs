@@ -1,10 +1,9 @@
-﻿using Domain.Common;
-using System;
-using System.Collections.Generic;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-    public class Artist: AuditableEntity
+    using Domain.Common;
+    using System;
+    using System.Collections.Generic;
+    public class Artist : AuditableEntity
     {
         public Artist()
         {

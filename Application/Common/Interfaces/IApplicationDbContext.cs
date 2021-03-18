@@ -1,14 +1,13 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.Common.Interfaces
+﻿namespace Application.Common.Interfaces
 {
-   public interface IApplicationDbContext
+    using Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public interface IApplicationDbContext
     {
         DbSet<Genre> Genre { get; set; }
         DbSet<Artist> Artist { get; set; }

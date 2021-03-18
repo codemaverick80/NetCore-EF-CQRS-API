@@ -1,11 +1,8 @@
-﻿using Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-   public class Track: AuditableEntity
+    using Domain.Common;
+    using System;
+    public class Track : AuditableEntity
     {
         public Guid Id { get; set; }
         public string TrackName { get; set; }

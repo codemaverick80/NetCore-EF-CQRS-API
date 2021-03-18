@@ -1,14 +1,11 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Artists.Commands.Create
+﻿namespace Application.CQRS.Artists.Commands.Create
 {
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class CreateArtist : IRequest<string>
     {
         public string Name { get; set; }
@@ -22,7 +19,7 @@ namespace Application.CQRS.Artists.Commands.Create
     }
 
 
-    public class CreateArtistHandler : IRequestHandler<CreateArtist,string>
+    public class CreateArtistHandler : IRequestHandler<CreateArtist, string>
     {
 
         private readonly IApplicationDbContext _context;
@@ -41,17 +38,17 @@ namespace Application.CQRS.Artists.Commands.Create
                 ArtistName = request.Name,
                 Biography = request.Biography,
                 YearActive = request.YearActive,
-                ArtistBasicInfo=new ArtistBasicInfo
+                ArtistBasicInfo = new ArtistBasicInfo
                 {
-                    ArtistId=id,
-                    Born=request.Born,
-                    Died=request.Died,
-                    AlsoKnownAs=request.AKA
+                    ArtistId = id,
+                    Born = request.Born,
+                    Died = request.Died,
+                    AlsoKnownAs = request.AKA
                 }
             };
 
             _context.Artist.Add(entity);
-             await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
             return entity.Id.ToString();
         }
     }

@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-namespace Application.Common.Mappings
+﻿namespace Application.Common.Mappings
 {
+    using AutoMapper;
     /*
      * All the querie's DTOs will implement this interface for entity mapping 
      */
@@ -9,7 +8,7 @@ namespace Application.Common.Mappings
     {
         void Mapping(Profile profile);
 
-       // void Mapping(Profile profile)=> profile.CreateMap(typeof(T), GetType());
+        // void Mapping(Profile profile)=> profile.CreateMap(typeof(T), GetType());
 
     }
 }

@@ -1,16 +1,15 @@
-﻿using Application.Common;
-using Application.Common.Interfaces;
-using Application.Common.Mappings;
-using AutoMapper;
-using Domain.Entities;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Genres.Queries
+﻿namespace Application.CQRS.Genres.Queries
 {
+    using Application.Common;
+    using Application.Common.Interfaces;
+    using Application.Common.Mappings;
+    using AutoMapper;
+    using Domain.Entities;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     #region "Query Request"
     public class GetGenresQuery : IRequest<PagedList<Genre>>

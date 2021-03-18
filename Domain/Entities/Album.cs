@@ -1,10 +1,9 @@
-﻿using Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
+    using Domain.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
     /*
      * 
      * Album entity includes two Reference Navigation Properties (of Artist type & Genre type)
@@ -44,6 +43,6 @@ namespace Domain.Entities
 
         /*Collection Navigation property */
         public ICollection<Track> Tracks { get; private set; }
-       
+
     }
 }

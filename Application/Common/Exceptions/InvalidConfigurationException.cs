@@ -1,11 +1,10 @@
-﻿using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Application.Common.Exceptions
+﻿namespace Application.Common.Exceptions
 {
+    using FluentValidation.Results;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     public class InvalidConfigurationException : ApplicationBaseException
     {
         public override string Reason => "InvalidConfigurationException";

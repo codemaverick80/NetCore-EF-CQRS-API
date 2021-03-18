@@ -1,20 +1,19 @@
-﻿using Application.Common;
-using Application.Common.Interfaces;
-using Application.Common.Mappings;
-using AutoMapper;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Artists.Queries
+﻿namespace Application.CQRS.Artists.Queries
 {
+    using Application.Common;
+    using Application.Common.Interfaces;
+    using Application.Common.Mappings;
+    using AutoMapper;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
     #region "Query Request"
-    public class GetArtists: IRequest<PagedList<Artist>>
+    public class GetArtists : IRequest<PagedList<Artist>>
     {
         public ArtistResourceParameters ResourceParameters { get; set; }
 
@@ -34,7 +33,7 @@ namespace Application.CQRS.Artists.Queries
         {
             var query = context.Artist as IQueryable<Artist>;
             query = query.Select(a => new Artist { Id = a.Id, ArtistName = a.ArtistName, YearActive = a.YearActive, Biography = a.Biography });
-            var result =await PagedList<Artist>.CreateAsync(query, request.ResourceParameters.PageNumber, request.ResourceParameters.PageSize);
+            var result = await PagedList<Artist>.CreateAsync(query, request.ResourceParameters.PageNumber, request.ResourceParameters.PageSize);
             return result;
         }
     }
@@ -46,7 +45,7 @@ namespace Application.CQRS.Artists.Queries
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-    
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Artist, GetArtistsReponse>()

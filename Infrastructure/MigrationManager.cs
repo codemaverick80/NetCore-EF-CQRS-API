@@ -1,12 +1,11 @@
-﻿using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Linq;
-
-namespace Infrastructure
+﻿namespace Infrastructure
 {
+    using Infrastructure.Persistence;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using System;
+    using System.Linq;
     /*
      * Note : While this approach is productive for local development and testing of migrations, 
      * this approach is inappropriate for managing production databases. 
@@ -16,9 +15,9 @@ namespace Infrastructure
     {
         public static IHost MigrateDatabase(this IHost host)
         {
-            using(var scope = host.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
-               using(var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+                using (var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
                     try
                     {

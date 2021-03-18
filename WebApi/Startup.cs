@@ -1,20 +1,19 @@
-using Application;
-using Application.Common.Interfaces;
-using Infrastructure;
-using Infrastructure.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
-using WebApi.Common.Extensions;
-using WebApi.Common.Filters;
-using WebApi.Common.Middleware;
-using WebApi.Services;
-
 namespace WebApi
 {
+    using Application;
+    using Application.Common.Interfaces;
+    using Infrastructure;
+    using Infrastructure.Configuration;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Newtonsoft.Json.Serialization;
+    using WebApi.Common.Extensions;
+    using WebApi.Common.Filters;
+    using WebApi.Common.Middleware;
+    using WebApi.Services;
     public class Startup
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
@@ -59,7 +58,7 @@ namespace WebApi
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-            services.AddHttpContextAccessor();          
+            services.AddHttpContextAccessor();
 
             #region "Add Swagger"
             services.AddSwaggerGen(options =>
@@ -84,7 +83,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -105,7 +104,7 @@ namespace WebApi
                 endpoints.MapControllers();
             });
 
-            
+
         }
     }
 }

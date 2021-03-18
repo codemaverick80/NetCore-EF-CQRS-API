@@ -1,18 +1,17 @@
-﻿using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Application.Common.Exceptions
+﻿namespace Application.Common.Exceptions
 {
-    public class BadRequestException: ApplicationBaseException
+    using FluentValidation.Results;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    public class BadRequestException : ApplicationBaseException
     {
 
         public override string Reason => "BadRequestException";
         // public BadRequestException():base() {}
-        public BadRequestException(string message):base(message)  { }
-        public BadRequestException(string message, Exception ex):base(message,ex) { }
+        public BadRequestException(string message) : base(message) { }
+        public BadRequestException(string message, Exception ex) : base(message, ex) { }
 
         public BadRequestException(string message, List<ValidationFailure> failures) : this(message)
         {
@@ -31,6 +30,6 @@ namespace Application.Common.Exceptions
             }
         }
 
-       
+
     }
 }

@@ -1,11 +1,10 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.CQRS.Artists.Commands.Update
+﻿namespace Application.CQRS.Artists.Commands.Update
 {
-   public class UpdateArtistValidator:AbstractValidator<UpdateArtist>
+    using FluentValidation;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    public class UpdateArtistValidator : AbstractValidator<UpdateArtist>
     {
         public UpdateArtistValidator()
         {

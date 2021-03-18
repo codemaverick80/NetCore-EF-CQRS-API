@@ -1,26 +1,25 @@
-﻿using Application.Common;
-using Application.Common.Interfaces;
-using Application.Common.Mappings;
-using AutoMapper;
-using Domain.Entities;
-using MediatR;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Albums.Queries
+﻿namespace Application.CQRS.Albums.Queries
 {
-   public class GetAlbumsQuery : IRequest<PagedList<Album>>
-   {
+    using Application.Common;
+    using Application.Common.Interfaces;
+    using Application.Common.Mappings;
+    using AutoMapper;
+    using Domain.Entities;
+    using MediatR;
+    using Microsoft.CodeAnalysis.CSharp.Scripting;
+    using Microsoft.CodeAnalysis.Scripting;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class GetAlbumsQuery : IRequest<PagedList<Album>>
+    {
         public AlbumResourceParameters ResourceParameters { get; set; }
 
-   }
+    }
 
 
     public class GetAlbumsQueryCommand : IRequestHandler<GetAlbumsQuery, PagedList<Album>>
@@ -34,25 +33,25 @@ namespace Application.CQRS.Albums.Queries
         }
 
         public async Task<PagedList<Album>> Handle(GetAlbumsQuery request, CancellationToken cancellationToken)
-        {          
-            var query = _context.Album as IQueryable<Album>; 
-            query = query.Select(a => new Album { Id = a.Id, AlbumName = a.AlbumName, Rating = a.Rating, Year= a.Year, Label=a.Label}).WhereEquals("Label","MCA");            
+        {
+            var query = _context.Album as IQueryable<Album>;
+            query = query.Select(a => new Album { Id = a.Id, AlbumName = a.AlbumName, Rating = a.Rating, Year = a.Year, Label = a.Label }).WhereEquals("Label", "MCA");
             var result = await PagedList<Album>.CreateAsync(query, request.ResourceParameters.PageNumber, request.ResourceParameters.PageSize);
             return result;
         }
 
 
-        
+
     }
 
 
 
-    public class GetAlbumsResponse:IMapFrom<Album>
+    public class GetAlbumsResponse : IMapFrom<Album>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Year { get; set; }
-        public string  Label { get; set; }
+        public string Label { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -69,7 +68,7 @@ namespace Application.CQRS.Albums.Queries
             public T v;
         }
 
-       static async Task<Func<T, bool>> FilterExpressionGeneric<T>(string filterString)
+        static async Task<Func<T, bool>> FilterExpressionGeneric<T>(string filterString)
         {
             try
             {
@@ -107,7 +106,7 @@ namespace Application.CQRS.Albums.Queries
                 var whereBody = Expression.Equal(property, value);
 
                 //// e => e.{propertyName} == holdpv.v
-                var whereLambda = Expression.Lambda<Func<T, bool>>(whereBody, parameter);                                
+                var whereLambda = Expression.Lambda<Func<T, bool>>(whereBody, parameter);
                 // var whereLambda = Expression.Lambda(whereBody, parameter);
 
 

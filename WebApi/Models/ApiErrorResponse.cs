@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApi.Models
+﻿namespace WebApi.Models
 {
+    using System.Collections.Generic;
     public class ApiErrorResponse
     {
-
         public List<SystemError> SystemError { get; set; }
-
 
     }
 

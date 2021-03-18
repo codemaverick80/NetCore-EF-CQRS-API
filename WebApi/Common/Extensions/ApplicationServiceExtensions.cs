@@ -1,12 +1,11 @@
-﻿using Infrastructure.Configuration;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Reflection;
-
-namespace WebApi.Common.Extensions
+﻿namespace WebApi.Common.Extensions
 {
+    using Infrastructure.Configuration;
+    using Infrastructure.Persistence;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using System;
+    using System.Reflection;
     public static class ApplicationServiceExtensions
     {
 

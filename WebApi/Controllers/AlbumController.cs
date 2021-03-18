@@ -1,16 +1,15 @@
-﻿using Application.CQRS.Albums.Queries;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApi.Common.Helpers;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
-  
+    using Application.CQRS.Albums.Queries;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using WebApi.Common.Helpers;
+
     public class AlbumController : BaseController
     {
 
@@ -24,7 +23,7 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet(Name ="GetAlbums")]
+        [HttpGet(Name = "GetAlbums")]
 
         public async Task<ActionResult<IEnumerable<GetAlbumsResponse>>> Get([FromQuery] AlbumResourceParameters resourceParameters)
         {

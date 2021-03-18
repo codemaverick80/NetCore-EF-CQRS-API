@@ -1,13 +1,11 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.SeedDatabase.Commands
+﻿namespace Application.CQRS.SeedDatabase.Commands
 {
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using System;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class TestDataSeeder
     {
         private IApplicationDbContext _context;

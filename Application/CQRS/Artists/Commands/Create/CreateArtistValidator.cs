@@ -1,11 +1,7 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.CQRS.Artists.Commands.Create
+﻿namespace Application.CQRS.Artists.Commands.Create
 {
-   public class CreateArtistValidator: AbstractValidator<CreateArtist>
+    using FluentValidation;
+    public class CreateArtistValidator : AbstractValidator<CreateArtist>
     {
         public CreateArtistValidator()
         {

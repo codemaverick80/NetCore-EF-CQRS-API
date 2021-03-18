@@ -1,14 +1,10 @@
-﻿using Application.Common.Interfaces;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.SeedDatabase.Commands
+﻿namespace Application.CQRS.SeedDatabase.Commands
 {
-   public class SeedTestDataCommand: IRequest
+    using Application.Common.Interfaces;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class SeedTestDataCommand : IRequest
     {
 
     }

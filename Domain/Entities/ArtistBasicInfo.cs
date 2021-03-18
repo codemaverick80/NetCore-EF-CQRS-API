@@ -1,11 +1,10 @@
-﻿using Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-   public class ArtistBasicInfo: AuditableEntity
+    using Domain.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    public class ArtistBasicInfo : AuditableEntity
     {
         public Guid ArtistId { get; set; }
         public string Born { get; set; }

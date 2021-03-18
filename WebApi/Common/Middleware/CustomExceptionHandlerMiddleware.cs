@@ -1,16 +1,14 @@
-﻿using Application.Common.Exceptions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using WebApi.Models;
-
-namespace WebApi.Common.Middleware
-{   
+﻿namespace WebApi.Common.Middleware
+{
+    using Application.Common.Exceptions;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Threading.Tasks;
+    using WebApi.Models;
     /// <summary>
     /// Global exception handling using middleware
     /// </summary>
@@ -34,7 +32,7 @@ namespace WebApi.Common.Middleware
             }
         }
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {            
+        {
             var code = HttpStatusCode.InternalServerError;
             var IncidentId = Guid.NewGuid();
             string result;
@@ -43,20 +41,20 @@ namespace WebApi.Common.Middleware
             switch (exception)
             {
                 case BadRequestException badRequestException:
-                    code = HttpStatusCode.BadRequest;                  
+                    code = HttpStatusCode.BadRequest;
                     break;
                 case InvalidGuidException invalidGuidException:
-                    code = HttpStatusCode.BadRequest;                
+                    code = HttpStatusCode.BadRequest;
                     break;
                 case NotFoundException notFoundException:
-                    code = HttpStatusCode.NotFound;                         
+                    code = HttpStatusCode.NotFound;
                     break;
                 case RequestValidationException validationException:
-                    code = HttpStatusCode.BadRequest; 
+                    code = HttpStatusCode.BadRequest;
                     break;
                 case DeleteFailureException deleteFailureException:
-                    code = HttpStatusCode.BadRequest;                   
-                    break;                
+                    code = HttpStatusCode.BadRequest;
+                    break;
             }
 
             context.Response.ContentType = "application/json";
@@ -69,7 +67,7 @@ namespace WebApi.Common.Middleware
                 er.SystemError = new List<SystemError>();
                 SystemError se = new SystemError()
                 {
-                    CreatorApplicatioId = "Music-API", 
+                    CreatorApplicatioId = "Music-API",
                     Code = "Internal Server Error",
                     Message = "Oops! Something went wrong at servie side"
                 };
@@ -105,7 +103,7 @@ namespace WebApi.Common.Middleware
                     };
                     er.SystemError.Add(se);
                 }
-                
+
                 result = JsonConvert.SerializeObject(new { IncidentId, ErrorMessage = exception.Message, Errors = er });
             }
             //context.Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = exception.Reason;            
@@ -113,7 +111,7 @@ namespace WebApi.Common.Middleware
 
         }
 
-        private string BadRequestMessage(Exception exception,string incidentId)
+        private string BadRequestMessage(Exception exception, string incidentId)
         {
             var appException = exception as ApplicationBaseException;
             ApiErrorResponse er = new ApiErrorResponse();
@@ -124,14 +122,14 @@ namespace WebApi.Common.Middleware
                 {
                     SystemError se = new SystemError()
                     {
-                        CreatorApplicatioId = "Music-API", 
-                        Code =appException.Reason,
+                        CreatorApplicatioId = "Music-API",
+                        Code = appException.Reason,
                         Message = item.Value[0]
                     };
                     er.SystemError.Add(se);
                 }
             }
-           return JsonConvert.SerializeObject(new { IncidentId=incidentId, ErrorMessage = exception.Message, Errors = er });
+            return JsonConvert.SerializeObject(new { IncidentId = incidentId, ErrorMessage = exception.Message, Errors = er });
         }
 
 

@@ -1,10 +1,9 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using WebApi.Common.Filters;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.DependencyInjection;
+
     [Route("api/[controller]")]
    // [ApplicationExceptionFilter] 
     [ApiController]

@@ -1,14 +1,6 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Genres.Commands.Create
+﻿namespace Application.CQRS.Genres.Commands.Create
 {
+    using MediatR;
     public class CreateGenreCommand : IRequest<string>
     {
         public string Name { get; set; }
@@ -19,6 +11,12 @@ namespace Application.CQRS.Genres.Commands.Create
 
 namespace Application.CQRS.Genres.Commands.Create
 {
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, string>
     {
         private readonly IApplicationDbContext context;

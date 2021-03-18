@@ -1,15 +1,14 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Artists.Commands.Update
+﻿namespace Application.CQRS.Artists.Commands.Update
 {
+    using Application.Common.Exceptions;
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
     public class UpdateArtist : IRequest
     {
         public string Id { get; set; }
@@ -31,7 +30,7 @@ namespace Application.CQRS.Artists.Commands.Update
             _context = context;
         }
 
-        public  async Task<Unit> Handle(UpdateArtist request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateArtist request, CancellationToken cancellationToken)
         {
             bool isValidGuid = Guid.TryParse(request.Id, out _);
             if (!isValidGuid)
@@ -49,14 +48,14 @@ namespace Application.CQRS.Artists.Commands.Update
             entity.Id = Guid.Parse(request.Id);
             entity.ArtistName = request.Name;
             entity.Biography = request.Biography;
-            entity.YearActive = request.YearActive;          
+            entity.YearActive = request.YearActive;
 
-            basicInfoEntity.ArtistId= Guid.Parse(request.Id);
+            basicInfoEntity.ArtistId = Guid.Parse(request.Id);
             basicInfoEntity.Born = request.Born;
             basicInfoEntity.AlsoKnownAs = request.AKA;
             basicInfoEntity.Died = request.Died;
-           
-            entity.ArtistBasicInfo = basicInfoEntity;          
+
+            entity.ArtistBasicInfo = basicInfoEntity;
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

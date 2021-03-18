@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-
-namespace WebApi.Models
+﻿namespace WebApi.Models
 {
-   public class ApiHeaders
+
+    using Microsoft.AspNetCore.Http;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    public class ApiHeaders
     {
         /// <summary>
         /// Client Guid on request and Web api Guid on response.
