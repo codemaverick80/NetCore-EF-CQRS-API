@@ -24,7 +24,6 @@
     {
         public static void CreatePaginationMetaData<T>(PagedList<T> result, PagingParameters pagingParameters, string routeName, IUrlHelper url, IHttpContextAccessor context)
         {
-
             //var previousPageLink = result.HasPrevious ? CreateGenresResourceUri(pagingParameters, ResourceUriType.PreviousPage,routeName,url) : null;
             //var nextPageLink = result.HasNext ? CreateGenresResourceUri(pagingParameters, ResourceUriType.NextPage, routeName,url) : null;
             var paginationMetadata = new PaginationMetadata()

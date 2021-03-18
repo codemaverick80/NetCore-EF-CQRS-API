@@ -9,9 +9,11 @@
     using System.Linq;
     using WebApi.Models;
     using System.Text.Json;
+    using WebApi.Common.Helpers;
+
     /*
-     * Register this in  ConfigureServices  (startup.cs)     * 
-     */
+     *   Register this in  ConfigureServices  (startup.cs)  
+    */
     public class ModelValidationActionFilter : IActionFilter
     {
 
@@ -33,7 +35,7 @@
             var action = actionDescriptor.ActionName;
 
 
-            ApiHeaders requestHeaders = ApiHeaders.GetHeaders(context.HttpContext.Request.Headers);
+            ApiHeaders requestHeaders = HeaderUtility.GetHeaders(context.HttpContext.Request.Headers);
 
             #region "Log Request Headers & Payload"
 
@@ -91,7 +93,7 @@
         public void OnActionExecuted(ActionExecutedContext context)
         {
             // Do something after the action executes.
-            ApiHeaders resposeHeaders = new ApiHeaders().ResponseHeaders(ApiHeaders.GetHeaders(context.HttpContext.Request.Headers));
+            ApiHeaders resposeHeaders = new HeaderUtility().SetResponseHeaders(HeaderUtility.GetHeaders(context.HttpContext.Request.Headers));
             context.HttpContext.Response.Headers.Add("API-CreationTimeStamp", resposeHeaders.CreationTimeStamp == DateTime.MinValue ? null : resposeHeaders.CreationTimeStamp.ToString("yyyy-MM-ddTHH:mm:ss.fffk"));
             context.HttpContext.Response.Headers.Add("API-SenderMessageId", resposeHeaders.SenderMessageId);
             context.HttpContext.Response.Headers.Add("API-SenderApplicationId", resposeHeaders.SenderApplicationId);
@@ -109,7 +111,8 @@
                 // TODO: Log in Database
             }
             catch { }
-
         }
+
+
     }
 }

@@ -15,7 +15,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApi.Common.Helpers;
-    public class GenreController : BaseController
+    public class GenreController : ApplicationBaseController
     {
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor _context;

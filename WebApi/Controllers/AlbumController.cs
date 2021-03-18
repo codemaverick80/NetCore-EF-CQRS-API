@@ -10,7 +10,7 @@
     using System.Threading.Tasks;
     using WebApi.Common.Helpers;
 
-    public class AlbumController : BaseController
+    public class AlbumController : ApplicationBaseController
     {
 
         private readonly IMapper mapper;

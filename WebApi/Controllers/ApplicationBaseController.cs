@@ -7,7 +7,7 @@
     [Route("api/[controller]")]
    // [ApplicationExceptionFilter] 
     [ApiController]
-    public abstract class BaseController : ControllerBase
+    public abstract class ApplicationBaseController : ControllerBase
     {
         private IMediator mediator;
         protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
