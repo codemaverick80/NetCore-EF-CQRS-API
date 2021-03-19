@@ -9,6 +9,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using WebApi.Common.Helpers;
+    using WebApi.Dtos;
 
     public class AlbumController : ApplicationBaseController
     {
@@ -24,14 +25,13 @@
 
 
         [HttpGet(Name = "GetAlbums")]
-
-        public async Task<ActionResult<IEnumerable<GetAlbumsResponse>>> Get([FromQuery] AlbumResourceParameters resourceParameters)
+        public async Task<ActionResult<IEnumerable<AlbumResponse>>> Get([FromQuery] AlbumResourceParameters resourceParameters)
         {
-            var result = await Mediator.Send(new GetAlbumsQuery() { ResourceParameters = resourceParameters });
+            var result = await Mediator.Send(new AlbumsQuery() { ResourceParameters = resourceParameters });
 
             PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetAlbums", Url, httpContextAccessor);
 
-            return Ok(mapper.Map<IEnumerable<GetAlbumsResponse>>(result));
+            return Ok(mapper.Map<IEnumerable<AlbumResponse>>(result));
 
         }
 

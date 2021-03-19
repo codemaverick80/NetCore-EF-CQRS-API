@@ -26,7 +26,6 @@
             {
                 return;
             }
-
             await SeedGenresAsync(cancellationToken);
             await SeedArtistsAsync(cancellationToken);
             await SeedAlbumsAsync(cancellationToken);
@@ -67,6 +66,9 @@
                     ArtistName="B.B. King",
                     YearActive="1940s - 2010s",
                     Biography="Modern Electric Blues, Soul-Blues, Early R&B, Memphis Blues, Regional Blues",
+                    ThumbnailTag="AR00000052",
+                    SmallThumbnail="AR00000052_thumbnail_s.jpg",
+                    LargeThumbnail="AR00000052_thumbnail_b.jpg",
                     ArtistBasicInfo=new ArtistBasicInfo {
                          ArtistId=Guid.Parse("1fd53f3a-023f-428c-8cc2-3141fb1af3ee"), Born="September 16, 1925 in Indianola, MS", Died="", AlsoKnownAs="Riley B. King"
                     }
@@ -77,6 +79,9 @@
                     ArtistName="Taylor Swift",
                     YearActive="2000s - 2010s",
                     Biography="Pop, Country-Pop, Contemporary Country",
+                    ThumbnailTag="AR00000006",
+                    SmallThumbnail="AR00000006_thumbnail_s.jpg",
+                    LargeThumbnail="AR00000006_thumbnail_b.jpg",
                     ArtistBasicInfo=new ArtistBasicInfo{
                         ArtistId=Guid.Parse("65efc48e-3e6d-4a5b-8402-fe157324c459"), Born="December 13, 1989 in Wyomissing, PA", Died="", AlsoKnownAs="Taylor Alison Swift" }
                 }
@@ -85,7 +90,6 @@
             _context.Artist.AddRange(artists);
             await _context.SaveChangesAsync(cancellationToken);
         }
-
 
         private async Task SeedAlbumsAsync(CancellationToken cancellationToken)
         {
@@ -174,19 +178,18 @@
                 new Album { Id=Guid.Parse("4679E65C-FC2B-4E06-B4BF-FBA1DD88D455"),ArtistId=Guid.Parse("1FD53F3A-023F-428C-8CC2-3141FB1AF3EE"),GenreId=Guid.Parse("599CC4BA-1F9C-4221-802A-49FE164FA6CF"),AlbumName="Lucille",Rating=0,Year=1968,Label="MCA"},
                 new Album { Id=Guid.Parse("77E93967-C481-4153-B42C-FC9079316A93"),ArtistId=Guid.Parse("1FD53F3A-023F-428C-8CC2-3141FB1AF3EE"),GenreId=Guid.Parse("599CC4BA-1F9C-4221-802A-49FE164FA6CF"),AlbumName="Confessin' the Blues",Rating=0,Year=1965,Label="ABC Music"},
 
-                new Album { Id=Guid.Parse("FC3D0640-FC11-47D5-8CE0-00DB2631FF6A"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Taylor Swift",Rating=0,Year=2006,Label="Big Machine Records"},
-                new Album { Id=Guid.Parse("0716E15B-42DA-457A-AA8B-31F4E20063C8"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Speak Now",Rating=0,Year=2010,Label="Big Machine Records"},
-                new Album { Id=Guid.Parse("6C7E36A2-6C03-4C3E-AD4E-6FC667FE9884"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="World Tour Live: Speak Now",Rating=0,Year=2011,Label="Big Machine Records"},
-                new Album { Id=Guid.Parse("F7597C62-AFA5-4B6E-A529-7169DEBE98F2"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="1989",Rating=0,Year=2014,Label="Big Machine Records"},
-                new Album { Id=Guid.Parse("3A2EAA17-1917-4A7D-9C3C-D17E8570176B"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Fearless",Rating=0,Year=2008,Label="Big Machine Records"},
-                new Album { Id=Guid.Parse("E41D2BEE-4D3F-427F-8DE5-EBB57D3C92BC"),ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Red",Rating=0,Year=2012,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("FC3D0640-FC11-47D5-8CE0-00DB2631FF6A"), ThumbnailTag="AL00001294", SmallThumbnail="AL00001294_thumbnail_s.jpg", MediumThumbnail="AL00001294_thumbnail_m.jpg", LargeThumbnail="AL00001294_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Taylor Swift",Rating=0,Year=2006,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("0716E15B-42DA-457A-AA8B-31F4E20063C8"), ThumbnailTag="AL00001296", SmallThumbnail="AL00001296_thumbnail_s.jpg", MediumThumbnail="AL00001296_thumbnail_m.jpg", LargeThumbnail="AL00001296_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Speak Now",Rating=0,Year=2010,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("6C7E36A2-6C03-4C3E-AD4E-6FC667FE9884"), ThumbnailTag="AL00001297", SmallThumbnail="AL00001297_thumbnail_s.jpg", MediumThumbnail="AL00001297_thumbnail_m.jpg", LargeThumbnail="AL00001297_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="World Tour Live: Speak Now",Rating=0,Year=2011,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("F7597C62-AFA5-4B6E-A529-7169DEBE98F2"), ThumbnailTag="AL00001299", SmallThumbnail="AL00001299_thumbnail_s.jpg", MediumThumbnail="AL00001299_thumbnail_m.jpg", LargeThumbnail="AL00001299_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="1989",Rating=0,Year=2014,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("3A2EAA17-1917-4A7D-9C3C-D17E8570176B"), ThumbnailTag="AL00001295", SmallThumbnail="AL00001295_thumbnail_s.jpg", MediumThumbnail="AL00001295_thumbnail_m.jpg", LargeThumbnail="AL00001295_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Fearless",Rating=0,Year=2008,Label="Big Machine Records"},
+                new Album { Id=Guid.Parse("E41D2BEE-4D3F-427F-8DE5-EBB57D3C92BC"), ThumbnailTag="AL00001298", SmallThumbnail="AL00001298_thumbnail_s.jpg", MediumThumbnail="AL00001298_thumbnail_m.jpg", LargeThumbnail="AL00001298_thumbnail_l.jpg", ArtistId=Guid.Parse("65EFC48E-3E6D-4A5B-8402-FE157324C459"),GenreId=Guid.Parse("F7803B64-407A-4597-B2D5-C59D2395FDF2"),AlbumName="Red",Rating=0,Year=2012,Label="Big Machine Records"},
 
             };
 
             _context.Album.AddRange(albums);
             await _context.SaveChangesAsync(cancellationToken);
         }
-
 
         private async Task SeedTracksAsync(CancellationToken cancellationToken)
         {

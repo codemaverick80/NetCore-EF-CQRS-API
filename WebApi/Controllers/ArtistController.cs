@@ -14,6 +14,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using WebApi.Common.Helpers;
+    using WebApi.Dtos;
 
     public class ArtistController : ApplicationBaseController
     {
@@ -31,11 +32,11 @@
         }
 
         [HttpGet(Name = "GetArtists")]
-        public async Task<ActionResult<IEnumerable<GetArtistsReponse>>> GetAll([FromQuery] ArtistResourceParameters resourceParameters)
+        public async Task<ActionResult<IEnumerable<ArtistResponse>>> GetAll([FromQuery] ArtistResourceParameters resourceParameters)
         {
-            var result = await Mediator.Send(new GetArtists() { ResourceParameters = resourceParameters });
+            var result = await Mediator.Send(new ArtistsQuery() { ResourceParameters = resourceParameters });
             PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetArtists", Url, httpContextAccessor);
-            return Ok(mapper.Map<IEnumerable<GetArtistsReponse>>(result));
+            return Ok(mapper.Map<IEnumerable<ArtistResponse>>(result));
         }
 
         [HttpGet("{id}")]
@@ -43,7 +44,8 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ArtistDetailResponse>> Get(string id)
         {
-            return Ok(await Mediator.Send(new GetArtistDetail() { Id = id }));
+            var result = await Mediator.Send(new GetArtistDetail() { Id = id });
+            return Ok(mapper.Map< ArtistDetailResponse> (result));           
         }
 
         [HttpPost()]
@@ -54,7 +56,6 @@
             var artistid = await Mediator.Send(request);
             return Ok(artistid);
         }
-
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

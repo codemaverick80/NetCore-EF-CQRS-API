@@ -1,24 +1,27 @@
 ﻿namespace Application
 {
     using Application.Common.PipelineBehaviours;
-    using AutoMapper;
     using FluentValidation;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
-    using System;
-    using System.Collections.Generic;
     using System.Reflection;
-    using System.Text;
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            #region"AutoMapper"
+            /* AutoMapper mapping using reflection. We need this configuration here ONLY if we have DTOs objects in this project.
+             * Its good item to put all the DTOs object in API project and mapp there.
+             */
+            //services.AddAutoMapper(Assembly.GetExecutingAssembly());//AutoMapper
+            #endregion
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            #region "MediatR"
             services.AddMediatR(Assembly.GetExecutingAssembly());
-
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehaviour<,>));
+            #endregion
 
             return services;
         }

@@ -2,6 +2,7 @@ namespace WebApi
 {
     using Application;
     using Application.Common.Interfaces;
+    using AutoMapper;
     using Infrastructure;
     using Infrastructure.Configuration;
     using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ namespace WebApi
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Newtonsoft.Json.Serialization;
+    using System.Reflection;
     using WebApi.Common.Extensions;
     using WebApi.Common.Filters;
     using WebApi.Common.Middleware;
@@ -39,15 +41,19 @@ namespace WebApi
         {
             ApplicationConfiguration appConfiguration = ValidateApplicationConfiguration(services);
 
+            
+
             services.AddApplication();
             services.AddInfrastructure();
             services.AddDatabases(appConfiguration);
             //services.AddAspNetIdentityDatabase(appConfiguration); // For Asp.Net core Identity system
 
+
+            services.AddAutoMapperMapping();
             services.AddControllers(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
-                options.Filters.Add(typeof(ModelValidationActionFilter));
+                //options.Filters.Add(typeof(ModelValidationActionFilter));
             })
             //START - Added NewtonsoftJson for PATCH request
             .AddNewtonsoftJson(setupAction =>

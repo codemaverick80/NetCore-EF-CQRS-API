@@ -2,8 +2,6 @@
 {
     using Application.Common;
     using Application.Common.Interfaces;
-    using Application.Common.Mappings;
-    using AutoMapper;
     using Domain.Entities;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
@@ -12,7 +10,7 @@
     using System.Threading.Tasks;
 
     #region "Query Request"
-    public class GetGenresQuery : IRequest<PagedList<Genre>>
+    public class GenresQuery : IRequest<PagedList<Genre>>
     {
         public GenreResourceParameters GenreResourceParameters { get; set; }
 
@@ -21,18 +19,17 @@
     #endregion
 
     #region "Query Request Handler"
-    public class GetGenresListQueryHandler : IRequestHandler<GetGenresQuery, PagedList<Genre>>
+    public class GetGenresQueryHandler : IRequestHandler<GenresQuery, PagedList<Genre>>
     {
         private readonly IApplicationDbContext context;
-        private readonly IMapper mapper;
-
-        public GetGenresListQueryHandler(IApplicationDbContext context, IMapper mapper)
+      
+        public GetGenresQueryHandler(IApplicationDbContext context)
         {
             this.context = context;
-            this.mapper = mapper;
+         
         }
 
-        public async Task<PagedList<Genre>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<Genre>> Handle(GenresQuery request, CancellationToken cancellationToken)
         { 
             var query = context.Genre as IQueryable<Genre>;
             //TODO : Build search query
@@ -51,19 +48,6 @@
 
     #endregion
 
-    #region "Response Dto"
-    public class GetGenresResponse : IMapFrom<Genre>
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap<Genre, GetGenresResponse>()
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.GenreName));
-        }
-
-    }
-
-    #endregion
+   
 
 }

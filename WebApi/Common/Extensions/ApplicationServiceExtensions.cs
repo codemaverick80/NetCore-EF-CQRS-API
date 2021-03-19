@@ -1,5 +1,6 @@
 ﻿namespace WebApi.Common.Extensions
 {
+    using AutoMapper;
     using Infrastructure.Configuration;
     using Infrastructure.Persistence;
     using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,13 @@
     using System.Reflection;
     public static class ApplicationServiceExtensions
     {
+
+        public static IServiceCollection AddAutoMapperMapping(this IServiceCollection services)
+        {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            return services;
+        }
+
 
         public static IServiceCollection AddDatabases(this IServiceCollection services, ApplicationConfiguration options)
         {
