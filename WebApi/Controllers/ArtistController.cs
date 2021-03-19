@@ -45,7 +45,7 @@
         public async Task<ActionResult<ArtistDetailResponse>> Get(string id)
         {
             var result = await Mediator.Send(new GetArtistDetail() { Id = id });
-            return Ok(mapper.Map< ArtistDetailResponse> (result));           
+            return Ok(mapper.Map<ArtistDetailResponse>(result));           
         }
 
         [HttpPost()]

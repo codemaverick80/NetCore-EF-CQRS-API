@@ -1,5 +1,5 @@
 ﻿namespace WebApi.Dtos
-{    
+{
     using AutoMapper;
     using Domain.Entities;
     using WebApi.Common.Mapping;

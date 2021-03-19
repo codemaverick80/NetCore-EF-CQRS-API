@@ -10,7 +10,6 @@
     public class AlbumsQuery : IRequest<PagedList<Album>>
     {
         public AlbumResourceParameters ResourceParameters { get; set; }
-
     }
     public class GetAlbumsQueryCommand : IRequestHandler<AlbumsQuery, PagedList<Album>>
     {
@@ -31,8 +30,6 @@
             var result = await PagedList<Album>.CreateAsync(query, request.ResourceParameters.PageNumber, request.ResourceParameters.PageSize);
             return result;
         }
-
-
 
     }
 
