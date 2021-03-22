@@ -15,16 +15,7 @@
         public string LargeThumbnail { get; set; }
         public string Born { get; set; }
         public string Died { get; set; }
-        public string AlsoKnownAs { get; set; }
-
-        //public void Mapping(Profile profile)
-        //{
-        //    profile.CreateMap<Artist, ArtistDetailResponse>()                
-        //        .ForMember(d => d.Name, opt => opt.MapFrom(s => s.ArtistName))
-        //        .ForMember(d => d.Born, opt => opt.MapFrom(s => s.ArtistBasicInfo.Born))
-        //        .ForMember(d => d.Died, opt => opt.MapFrom(s => s.ArtistBasicInfo.Died))                
-        //        .ForMember(d => d.AlsoKnownAs, opt => opt.MapFrom(s => s.ArtistBasicInfo.AlsoKnownAs));
-        //}
+        public string AlsoKnownAs { get; set; }    
 
         public void Mapping(Profile profile)
         {   

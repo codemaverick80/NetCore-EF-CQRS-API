@@ -2,11 +2,13 @@
 {
     using Application.CQRS.Artists;
     using Application.CQRS.Artists.Commands.Create;
+    using Application.CQRS.Artists.Commands.Patch;
     using Application.CQRS.Artists.Commands.Update;
     using Application.CQRS.Artists.Queries;
     using AutoMapper;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.JsonPatch;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -45,8 +47,12 @@
         public async Task<ActionResult<ArtistDetailResponse>> Get(string id)
         {
             var result = await Mediator.Send(new GetArtistDetail() { Id = id });
-            return Ok(mapper.Map<ArtistDetailResponse>(result));           
+            //// TODO: 
+            //result.SmallThumbnail = $"https://musicapi.com/image/artist/s/{result.SmallThumbnail}";
+            //result.LargeThumbnail = $"https://musicapi.com/image/artist/l/{result.LargeThumbnail}";
+            return Ok(mapper.Map<ArtistDetailResponse>(result));
         }
+
 
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -57,13 +63,43 @@
             return Ok(artistid);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Update([FromBody] UpdateArtist request)
+        public async Task<ActionResult> Update(string id, [FromBody] UpdateArtist request)
         {
+            request.Id = id;
+
             await Mediator.Send(request);
             return NoContent();
         }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchArtistCommand> request)
+        {
+            var artistDetail = await Mediator.Send(new GetArtistDetail() { Id = id });
+            PatchArtistCommand artistToPatch = new PatchArtistCommand()
+            {
+                Id = artistDetail.Id.ToString(),
+                Name = artistDetail.ArtistName,
+                Biography = artistDetail.Biography,
+                YearActive = artistDetail.YearActive,
+                Born = artistDetail.ArtistBasicInfo.Born,
+                AKA = artistDetail.ArtistBasicInfo.AlsoKnownAs,
+                Died = artistDetail.ArtistBasicInfo.Died
+            };
+
+            request.ApplyTo(artistToPatch, ModelState);
+            if(!TryValidateModel(artistToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+            await Mediator.Send(artistToPatch);
+            return NoContent();
+
+        }
+
+
 
 
         #region "Upload and download Image"
@@ -93,7 +129,7 @@
         public IActionResult GetImage(string image)
         {
             var mimeType = image.Split('.').Last();
-            var savePath = Path.Combine(env.WebRootPath, image);          
+            var savePath = Path.Combine(env.WebRootPath, image);
             return new FileStreamResult(new FileStream(savePath, FileMode.Open, FileAccess.Read), "image/*");
             //return new FileStreamResult(filestrem, Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse(image));
         }
