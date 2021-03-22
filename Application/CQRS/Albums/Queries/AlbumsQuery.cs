@@ -7,16 +7,21 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+   
+    
+    
     public class AlbumsQuery : IRequest<PagedList<Album>>
     {
         public AlbumResourceParameters ResourceParameters { get; set; }
     }
-    public class GetAlbumsQueryCommand : IRequestHandler<AlbumsQuery, PagedList<Album>>
+
+
+    public class AlbumsQueryHandler : IRequestHandler<AlbumsQuery, PagedList<Album>>
     {
 
         private readonly IApplicationDbContext _context;
 
-        public GetAlbumsQueryCommand(IApplicationDbContext context)
+        public AlbumsQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -26,7 +31,14 @@
             var query = _context.Album as IQueryable<Album>;
             //query = query.Select(a => new Album { Id = a.Id, AlbumName = a.AlbumName, Rating = a.Rating, Year = a.Year, Label = a.Label }).WhereEquals("Label", "MCA");
 
-            query = query.Select(a => new Album { Id = a.Id, AlbumName = a.AlbumName, Rating = a.Rating, Year = a.Year, Label = a.Label });
+            query = query.Select(a => new Album 
+            { 
+                Id = a.Id, 
+                AlbumName = a.AlbumName, 
+                Rating = a.Rating, 
+                Year = a.Year, 
+                Label = a.Label 
+            });
             var result = await PagedList<Album>.CreateAsync(query, request.ResourceParameters.PageNumber, request.ResourceParameters.PageSize);
             return result;
         }

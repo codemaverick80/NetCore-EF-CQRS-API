@@ -1,9 +1,6 @@
 ﻿namespace Application.CQRS.Genres.Commands.Patch
 {
     using FluentValidation;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     public class PatchGenreCommandValidator : AbstractValidator<PatchGenreCommand>
     {
         public PatchGenreCommandValidator()

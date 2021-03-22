@@ -1,16 +1,13 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Application.CQRS.Artists.Commands.Patch
+﻿namespace Application.CQRS.Artists.Commands.Patch
 {
-   public class PatchArtistCommand:IRequest
+    using Application.Common.Exceptions;
+    using Application.Common.Interfaces;
+    using Domain.Entities;
+    using MediatR;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    public class PatchArtistCommand : IRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -36,7 +33,6 @@ namespace Application.CQRS.Artists.Commands.Patch
 
         public async Task<Unit> Handle(PatchArtistCommand request, CancellationToken cancellationToken)
         {
-
             var entity = await _context.Artist.FindAsync(Guid.Parse(request.Id));
 
             if (entity == null)

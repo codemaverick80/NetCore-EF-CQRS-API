@@ -46,7 +46,7 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ArtistDetailResponse>> Get(string id)
         {
-            var result = await Mediator.Send(new GetArtistDetail() { Id = id });
+            var result = await Mediator.Send(new ArtistDetailQuery() { Id = id });
             //// TODO: 
             //result.SmallThumbnail = $"https://musicapi.com/image/artist/s/{result.SmallThumbnail}";
             //result.LargeThumbnail = $"https://musicapi.com/image/artist/l/{result.LargeThumbnail}";
@@ -77,7 +77,7 @@
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchArtistCommand> request)
         {
-            var artistDetail = await Mediator.Send(new GetArtistDetail() { Id = id });
+            var artistDetail = await Mediator.Send(new ArtistDetailQuery() { Id = id });
             PatchArtistCommand artistToPatch = new PatchArtistCommand()
             {
                 Id = artistDetail.Id.ToString(),

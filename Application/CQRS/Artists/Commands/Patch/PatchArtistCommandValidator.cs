@@ -1,9 +1,9 @@
-﻿namespace Application.CQRS.Artists.Commands.Update
+﻿namespace Application.CQRS.Artists.Commands.Patch
 {
     using FluentValidation;
-    public class UpdateArtistValidator : AbstractValidator<UpdateArtist>
+    class PatchArtistCommandValidator : AbstractValidator<PatchArtistCommand>
     {
-        public UpdateArtistValidator()
+        public PatchArtistCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Name).MinimumLength(3);

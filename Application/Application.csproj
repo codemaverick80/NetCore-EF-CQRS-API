@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Albums\Commands\" />
     <Folder Include="CQRS\Artists\Commands\Delete\" />
     <Folder Include="CQRS\Tracks\Commands\" />
     <Folder Include="CQRS\Tracks\Queries\" />

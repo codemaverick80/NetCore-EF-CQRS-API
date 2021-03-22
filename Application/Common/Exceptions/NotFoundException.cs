@@ -8,7 +8,7 @@
         public override string Reason => "NotFoundException";
 
         // public NotFoundException():base() {} 
-        public NotFoundException(string name, object key) : base($"No record found for the id {key}") { }
+        public NotFoundException(string name, object key) : base($"{name} - No record found for the id {key}") { }
         public NotFoundException(string message, Exception ex) : base(message, ex) { }
     }
 }

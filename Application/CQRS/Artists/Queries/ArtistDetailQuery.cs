@@ -8,28 +8,28 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    public class GetArtistDetail : IRequest<Artist>
+    public class ArtistDetailQuery : IRequest<Artist>
     {
         public string Id { get; set; }
 
     }
 
-    public class GetArtistDetailHandler : IRequestHandler<GetArtistDetail, Artist>
+    public class ArtistDetailQueryHandler : IRequestHandler<ArtistDetailQuery, Artist>
     {
-        private readonly IApplicationDbContext dbContext;
-        public GetArtistDetailHandler(IApplicationDbContext dbContext)
+        private readonly IApplicationDbContext _context;
+        public ArtistDetailQueryHandler(IApplicationDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            _context = dbContext;
         }
 
-        public async Task<Artist> Handle(GetArtistDetail request, CancellationToken cancellationToken)
+        public async Task<Artist> Handle(ArtistDetailQuery request, CancellationToken cancellationToken)
         {
             bool isValidGuid = Guid.TryParse(request.Id, out _);
             if (!isValidGuid)
             {
                 throw new InvalidGuidException(nameof(Artist), request.Id);
             }           
-            var entity = dbContext.Artist.Select(a => new Artist
+            var entity = _context.Artist.Select(a => new Artist
             {
                 Id = a.Id,
                 ArtistName = a.ArtistName,
