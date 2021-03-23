@@ -68,17 +68,16 @@
         public async Task<ActionResult> Update(string id, [FromBody] UpdateArtist request)
         {
             request.Id = id;
-
             await Mediator.Send(request);
             return NoContent();
         }
 
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchArtistCommand> request)
+        public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchArtist> request)
         {
             var artistDetail = await Mediator.Send(new ArtistDetailQuery() { Id = id });
-            PatchArtistCommand artistToPatch = new PatchArtistCommand()
+            PatchArtist artistToPatch = new PatchArtist()
             {
                 Id = artistDetail.Id.ToString(),
                 Name = artistDetail.ArtistName,

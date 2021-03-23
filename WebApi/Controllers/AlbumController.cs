@@ -1,13 +1,14 @@
 ﻿namespace WebApi.Controllers
 {
     using Application.CQRS.Albums.Commands.Create;
+    using Application.CQRS.Albums.Commands.Patch;
+    using Application.CQRS.Albums.Commands.Update;
     using Application.CQRS.Albums.Queries;
     using AutoMapper;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.JsonPatch;
     using Microsoft.AspNetCore.Mvc;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using WebApi.Common.Helpers;
     using WebApi.Dtos;
@@ -59,6 +60,42 @@
             return Ok(artistid);
         }
 
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> Update(string id, [FromBody] UpdateAlbum request)
+        {
+            request.Id = id;
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchAlbum> request)
+        {
+            var albumDetail = await Mediator.Send(new AlbumDetailQuery() { Id = id });
+            PatchAlbum albumToPatch = new PatchAlbum()
+            {
+                Id = albumDetail.Id.ToString(),
+                Name = albumDetail.AlbumName,
+                GenreId = albumDetail.GenreId.ToString(),
+                ArtistId = albumDetail.ArtistId.ToString(),
+                AlbumUrl = albumDetail.AlbumUrl,
+                Label = albumDetail.Label,
+                Rating = albumDetail.Rating,
+                Year = albumDetail.Year
+            };
+
+            request.ApplyTo(albumToPatch, ModelState);
+            if (!TryValidateModel(albumToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+            await Mediator.Send(albumToPatch);
+            return NoContent();
+
+        }
 
 
 

@@ -1,9 +1,9 @@
 ﻿namespace Application.CQRS.Genres.Commands.Patch
 {
     using FluentValidation;
-    public class PatchGenreCommandValidator : AbstractValidator<PatchGenreCommand>
+    public class PatchGenreValidator : AbstractValidator<PatchGenre>
     {
-        public PatchGenreCommandValidator()
+        public PatchGenreValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Genre id must not be empty while updating");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Genre name must not be empty while updating");

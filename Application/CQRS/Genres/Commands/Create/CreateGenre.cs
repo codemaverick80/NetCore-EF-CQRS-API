@@ -1,7 +1,7 @@
 ﻿namespace Application.CQRS.Genres.Commands.Create
 {
     using MediatR;
-    public class CreateGenreCommand : IRequest<string>
+    public class CreateGenre : IRequest<string>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -17,7 +17,7 @@ namespace Application.CQRS.Genres.Commands.Create
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, string>
+    public class CreateGenreCommandHandler : IRequestHandler<CreateGenre, string>
     {
         private readonly IApplicationDbContext context;
 
@@ -26,7 +26,7 @@ namespace Application.CQRS.Genres.Commands.Create
             this.context = context;
         }
 
-        public async Task<string> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateGenre request, CancellationToken cancellationToken)
         {
             var entity = new Genre
             {

@@ -7,7 +7,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    public class PatchArtistCommand : IRequest
+    public class PatchArtist : IRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +20,7 @@
     }
 
 
-    public class PatchArtistCommandHandler : IRequestHandler<PatchArtistCommand>
+    public class PatchArtistCommandHandler : IRequestHandler<PatchArtist>
     {
         private readonly IApplicationDbContext _context;
 
@@ -31,7 +31,7 @@
 
 
 
-        public async Task<Unit> Handle(PatchArtistCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(PatchArtist request, CancellationToken cancellationToken)
         {
             var entity = await _context.Artist.FindAsync(Guid.Parse(request.Id));
 

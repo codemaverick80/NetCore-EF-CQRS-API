@@ -1,9 +1,9 @@
 ﻿namespace Application.CQRS.Genres.Commands.Create
 {
 using FluentValidation;
-    public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
+    public class CreateGenreValidator : AbstractValidator<CreateGenre>
     {
-        public CreateGenreCommandValidator()
+        public CreateGenreValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Name).MinimumLength(3);

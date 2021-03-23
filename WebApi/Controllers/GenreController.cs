@@ -80,7 +80,7 @@
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Post([FromBody] CreateGenreCommand request)
+        public async Task<ActionResult> Post([FromBody] CreateGenre request)
         {
             var id = await Mediator.Send(request);
             return CreatedAtRoute(
@@ -95,7 +95,7 @@
         // TODO: PUT will update full entity
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Update([FromBody] UpdateGenreCommand request)
+        public async Task<ActionResult> Update([FromBody] UpdateGenre request)
         {
             await Mediator.Send(request);
             return NoContent();
@@ -104,10 +104,10 @@
 
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> PartialGenreUpdate(string id, JsonPatchDocument<PatchGenreCommand> request)
+        public async Task<ActionResult> PartialGenreUpdate(string id, JsonPatchDocument<PatchGenre> request)
         {
             var genreFromDb = await Mediator.Send(new GenreDetailQuery { Id = id });
-            PatchGenreCommand genreToPatch = new PatchGenreCommand()
+            PatchGenre genreToPatch = new PatchGenre()
             {
                 Id = genreFromDb.Id.ToString(),
                 Name = genreFromDb.GenreName,
@@ -130,7 +130,7 @@
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Delete(string id)
         {
-            await Mediator.Send(new DeleteGenreCommand { Id = id });
+            await Mediator.Send(new DeleteGenre { Id = id });
             return NoContent();
         }
 

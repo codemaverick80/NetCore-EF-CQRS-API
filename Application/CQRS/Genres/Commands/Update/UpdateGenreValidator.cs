@@ -1,9 +1,9 @@
 ﻿namespace Application.CQRS.Genres.Commands.Update
 {
     using FluentValidation;
-    public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
+    public class UpdateGenreValidator : AbstractValidator<UpdateGenre>
     {
-        public UpdateGenreCommandValidator()
+        public UpdateGenreValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Genre id must not be empty while updating");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Genre name must not be empty while updating");

@@ -1,37 +1,36 @@
-﻿namespace Application.CQRS.Genres.Commands.Patch
+﻿namespace Application.CQRS.Genres.Commands.Update
 {
     using Application.Common.Exceptions;
     using Application.Common.Interfaces;
     using Domain.Entities;
     using MediatR;
     using System;
-    using System.Collections.Generic;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    public class PatchGenreCommand : IRequest
+    public class UpdateGenre : IRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }
 
-    public class PatchGenreCommandHandler : IRequestHandler<PatchGenreCommand>
+
+    public class UpdataGenreCommandHandler : IRequestHandler<UpdateGenre>
     {
         private readonly IApplicationDbContext _context;
 
-        public PatchGenreCommandHandler(IApplicationDbContext context)
+        public UpdataGenreCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
-        public async Task<Unit> Handle(PatchGenreCommand request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(UpdateGenre request, CancellationToken cancellationToken)
         {
-            ////Guid id = Guid.Empty;
-            ////bool isValidGuid = Guid.TryParse(request.Id, out id);
-            ////if (!isValidGuid)
-            ////{
-            ////    throw new InvalidGuidException(nameof(Genre), request.Id);
-            ////}
+            bool isValidGuid = Guid.TryParse(request.Id, out _);
+            if (!isValidGuid)
+            {
+                throw new InvalidGuidException(nameof(Genre), request.Id);
+            }
 
             var entity = await _context.Genre.FindAsync(Guid.Parse(request.Id));
             if (entity == null)
@@ -44,6 +43,7 @@
             entity.Description = request.Description;
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
+
         }
     }
 }

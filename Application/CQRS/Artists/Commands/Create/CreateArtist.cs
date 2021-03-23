@@ -11,8 +11,8 @@
         public string Name { get; set; }
         public string YearActive { get; set; }
         public string Biography { get; set; }
-        //public ArtistBasicInfo ArtistBasicInfo { get; set; }
-
+        
+        /*      ArtistBasicInfo     */
         public string Born { get; set; }
         public string Died { get; set; }
         public string AKA { get; set; }
@@ -38,6 +38,11 @@
                 ArtistName = request.Name,
                 Biography = request.Biography,
                 YearActive = request.YearActive,
+                
+                ThumbnailTag=id.ToString(),                             // Id will be the ThumbnailTag
+                SmallThumbnail=$"{id.ToString()}_thumbnail_s.jpg",      // Id_thumbnail_s.jpg
+                LargeThumbnail= $"{id.ToString()}_thumbnail_l.jpg",     // Id_thumbnail_l.jpg
+
                 ArtistBasicInfo = new ArtistBasicInfo
                 {
                     ArtistId = id,

@@ -1,14 +1,15 @@
-﻿namespace Application.CQRS.Albums.Commands.Create
+﻿namespace Application.CQRS.Albums.Commands.Update
 {
     using FluentValidation;
-    public class CreateAlbumValidator : AbstractValidator<CreateAlbum>
+    public class UpdateAlbumValidator : AbstractValidator<UpdateAlbum>
     {
-        public CreateAlbumValidator()
+        public UpdateAlbumValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Name).MinimumLength(3);
             RuleFor(x => x.ArtistId).NotEmpty();
             RuleFor(x => x.GenreId).NotEmpty();
+            RuleFor(x => x.Label).NotEmpty();
         }
     }
 }
