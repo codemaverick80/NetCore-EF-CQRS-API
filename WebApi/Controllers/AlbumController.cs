@@ -1,9 +1,11 @@
 ﻿namespace WebApi.Controllers
 {
     using Application.CQRS.Albums.Commands.Create;
+    using Application.CQRS.Albums.Commands.Delete;
     using Application.CQRS.Albums.Commands.Patch;
     using Application.CQRS.Albums.Commands.Update;
     using Application.CQRS.Albums.Queries;
+    using Application.CQRS.Tracks.Queries;
     using AutoMapper;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.JsonPatch;
@@ -26,16 +28,15 @@
         }
 
 
+        #region "Album queries and commands"
+
         [HttpGet(Name = "GetAlbums")]
         public async Task<ActionResult<IEnumerable<AlbumResponse>>> Get([FromQuery] AlbumResourceParameters resourceParameters)
         {
             var result = await Mediator.Send(new AlbumsQuery() { ResourceParameters = resourceParameters });
-
             PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetAlbums", Url, httpContextAccessor);
-
             return Ok(mapper.Map<IEnumerable<AlbumResponse>>(result));
         }
-
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -69,7 +70,6 @@
             return NoContent();
         }
 
-
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Patch(string id, JsonPatchDocument<PatchAlbum> request)
@@ -94,8 +94,33 @@
             }
             await Mediator.Send(albumToPatch);
             return NoContent();
-
         }
+
+        #endregion
+
+        #region "Track Queries and Commands"
+
+
+        [HttpGet("{albumid}/tracks", Name = "GetTracks")]
+        public async Task<ActionResult<IEnumerable<TrackResponse>>> Get(string albumid, [FromQuery] TrackResourceParameters resourceParameters)
+        {
+            var result = await Mediator.Send(new TrackQuery() { ResourceParameters = resourceParameters, AlbumId = albumid });
+            PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetTracks", Url, httpContextAccessor);
+            return Ok(mapper.Map<IEnumerable<TrackResponse>>(result));
+        }
+
+
+        #endregion
+
+
+        //// TODO : DO NOT Expose delete enpoint but in this demo we will
+        //[HttpDelete("{id}")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    await Mediator.Send(new DeleteAlbum { Id = id });
+        //    return NoContent();
+        //}
 
 
 

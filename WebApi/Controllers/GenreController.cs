@@ -125,71 +125,71 @@
             return NoContent();
         }
 
-        // TODO : DO NOT Expose delete enpoint but in this demo we will
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete(string id)
-        {
-            await Mediator.Send(new DeleteGenre { Id = id });
-            return NoContent();
-        }
-
-
-        //public enum ResourceUriType
+        //// TODO : DO NOT Expose delete enpoint but in this demo we will
+        //[HttpDelete("{id}")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //public async Task<IActionResult> Delete(string id)
         //{
-        //    PreviousPage,
-        //    NextPage
-        //}
-
-
-        //private void CreatePaginationMetaData<T>(PagedList<T> genresFromQuery, PagingParameters resourceParams)
-        //{
-        //    var previousPageLink = genresFromQuery.HasPrevious ? CreateGenresResourceUri(resourceParams, ResourceUriType.PreviousPage) : null;
-        //    var nextPageLink = genresFromQuery.HasNext ? CreateGenresResourceUri(resourceParams, ResourceUriType.NextPage) : null;
-        //    var paginationMetadata = new
-        //    {
-        //        TotalCount = genresFromQuery.TotalCount,
-        //        PageSize = genresFromQuery.PageSize,
-        //        CurrentPage = genresFromQuery.CurrentPage,
-        //        TotalPages = genresFromQuery.TotalPages,
-        //        PreviousPageLink = previousPageLink,
-        //        NextPageLink = nextPageLink
-        //    };
-        //    // TODO: Adding X-Pagination to resonse header
-        //    Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
-        //}
-
-        //private string CreateGenresResourceUri(PagingParameters genresResourceParameters, ResourceUriType type)
-        //{
-        //    var a = Url;
-        //    switch (type)
-        //    {
-        //        case ResourceUriType.PreviousPage:
-        //            return Url.Link("GetGenres",
-        //              new
-        //              {
-        //                  pageNumber = genresResourceParameters.PageNumber - 1,
-        //                  pageSize = genresResourceParameters.PageSize                          
-        //              });
-        //        case ResourceUriType.NextPage:
-        //            return Url.Link("GetGenres",
-        //              new
-        //              {
-        //                  pageNumber = genresResourceParameters.PageNumber + 1,
-        //                  pageSize = genresResourceParameters.PageSize
-        //              });
-
-        //        default:
-        //            return Url.Link("GetGenres",
-        //            new
-        //            {
-        //                pageNumber = genresResourceParameters.PageNumber,
-        //                pageSize = genresResourceParameters.PageSize
-        //            });
-        //    }
-
-        //}
+        //    await Mediator.Send(new DeleteGenre { Id = id });
+        //    return NoContent();
+        //}   
 
 
     }
+
 }
+
+
+//public enum ResourceUriType
+//{
+//    PreviousPage,
+//    NextPage
+//}
+
+//private void CreatePaginationMetaData<T>(PagedList<T> genresFromQuery, PagingParameters resourceParams)
+//{
+//    var previousPageLink = genresFromQuery.HasPrevious ? CreateGenresResourceUri(resourceParams, ResourceUriType.PreviousPage) : null;
+//    var nextPageLink = genresFromQuery.HasNext ? CreateGenresResourceUri(resourceParams, ResourceUriType.NextPage) : null;
+//    var paginationMetadata = new
+//    {
+//        TotalCount = genresFromQuery.TotalCount,
+//        PageSize = genresFromQuery.PageSize,
+//        CurrentPage = genresFromQuery.CurrentPage,
+//        TotalPages = genresFromQuery.TotalPages,
+//        PreviousPageLink = previousPageLink,
+//        NextPageLink = nextPageLink
+//    };
+//    // TODO: Adding X-Pagination to resonse header
+//    Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+//}
+
+//private string CreateGenresResourceUri(PagingParameters genresResourceParameters, ResourceUriType type)
+//{
+//    var a = Url;
+//    switch (type)
+//    {
+//        case ResourceUriType.PreviousPage:
+//            return Url.Link("GetGenres",
+//              new
+//              {
+//                  pageNumber = genresResourceParameters.PageNumber - 1,
+//                  pageSize = genresResourceParameters.PageSize                          
+//              });
+//        case ResourceUriType.NextPage:
+//            return Url.Link("GetGenres",
+//              new
+//              {
+//                  pageNumber = genresResourceParameters.PageNumber + 1,
+//                  pageSize = genresResourceParameters.PageSize
+//              });
+
+//        default:
+//            return Url.Link("GetGenres",
+//            new
+//            {
+//                pageNumber = genresResourceParameters.PageNumber,
+//                pageSize = genresResourceParameters.PageSize
+//            });
+//    }
+
+//}

@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="CQRS\Artists\Commands\Delete\" />
     <Folder Include="CQRS\Tracks\Commands\" />
-    <Folder Include="CQRS\Tracks\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
