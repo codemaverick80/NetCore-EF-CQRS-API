@@ -69,11 +69,11 @@
         [HttpGet("{id}", Name = "GetGenre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<GenreDetailGetResponse>> Get(string id)
+        public async Task<ActionResult<GenreDetailResponse>> Get(string id)
         {
             _logger.LogInformation("GetGenre by id endpoing ...");
             var result = await Mediator.Send(new GenreDetailQuery { Id = id });
-            return Ok(mapper.Map<GenreDetailGetResponse>(result));
+            return Ok(mapper.Map<GenreDetailResponse>(result));
         }
 
 

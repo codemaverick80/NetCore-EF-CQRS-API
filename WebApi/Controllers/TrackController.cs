@@ -33,5 +33,16 @@
         //}
 
 
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]        
+        public async Task<ActionResult<GenreDetailResponse>> Get(string id)
+        {           
+            var result = await Mediator.Send(new TrackDetailQuery { Id = id });
+            return Ok(mapper.Map<TrackDetailResponse>(result));
+        }
+
+
+
     }
 }

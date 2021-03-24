@@ -5,7 +5,7 @@
     using System;
     using WebApi.Common.Mapping;
 
-    public class GenreDetailGetResponse : IMapFrom<Genre>
+    public class GenreDetailResponse : IMapFrom<Genre>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -13,7 +13,7 @@
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Genre, GenreDetailGetResponse>()
+            profile.CreateMap<Genre, GenreDetailResponse>()
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.GenreName));
         }
     }
