@@ -8,13 +8,13 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class CreateAlbum :IRequest<string>
+    public class CreateAlbum : IRequest<string>
     {
-       public string Name { get; set; }
+        public string Name { get; set; }
         public string ArtistId { get; set; }
         public string GenreId { get; set; }
-        public int Rating { get; set; }
-        public int Year { get; set; }
+        public string Rating { get; set; }
+        public string Year { get; set; }
         public string Label { get; set; }
         public string ThumbnailTag { get; set; }
         public string SmallThumbnail { get; set; }
@@ -39,7 +39,7 @@
         {
             var id = Guid.NewGuid();
             if (await ValidateArtistAndGenre(request))
-            {               
+            {
                 Guid artistId = Guid.Parse(request.ArtistId);
                 Guid genreId = Guid.Parse(request.GenreId);
 
@@ -49,19 +49,21 @@
                     AlbumName = request.Name,
                     ArtistId = artistId,
                     GenreId = genreId,
-                    Rating = request.Rating,
-                    Year = request.Year,
-                    Label = request.Label,
+                    Rating = string.IsNullOrWhiteSpace(request.Rating) ? (int?)null : Convert.ToInt32(request.Rating),
+                    Year = string.IsNullOrWhiteSpace(request.Year) ? (int?)null : Convert.ToInt32(request.Year),
+                    Label = string.IsNullOrWhiteSpace(request.Label) ? null : request.Label,
+
                     ThumbnailTag = id.ToString(),               // Id will be the ThumbnailTag
                     SmallThumbnail = request.SmallThumbnail,    // Id_thumbnail_s.jpg
                     MediumThumbnail = request.MediumThumbnail,  // Id_thumbnail_m.jpg
                     LargeThumbnail = request.LargeThumbnail,    // Id_thumbnail_l.jpg
-                    AlbumUrl = request.AlbumUrl
+
+                    AlbumUrl = string.IsNullOrWhiteSpace(request.AlbumUrl) ? null : request.AlbumUrl
                 };
 
                 _context.Album.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken); 
-                
+                await _context.SaveChangesAsync(cancellationToken);
+
             }
             return id.ToString();
 
