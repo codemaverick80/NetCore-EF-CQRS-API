@@ -13,8 +13,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
     }
-
-
     public class UpdataGenreCommandHandler : IRequestHandler<UpdateGenre>
     {
         private readonly IApplicationDbContext _context;
@@ -43,7 +41,6 @@
             entity.Description = request.Description;
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
-
         }
     }
 }

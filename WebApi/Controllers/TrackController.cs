@@ -22,17 +22,7 @@
         {
             this.mapper = mapper;
             this.httpContextAccessor = httpContextAccessor;
-        }
-
-
-        //[HttpGet(Name = "GetTracks")]
-        //public async Task<ActionResult<IEnumerable<TrackResponse>>> Get([FromQuery] TrackResourceParameters resourceParameters)
-        //{
-        //    var result = await Mediator.Send(new TrackQuery() { ResourceParameters = resourceParameters });
-        //    PaginationMetaData.CreatePaginationMetaData(result, resourceParameters, "GetTracks", Url, httpContextAccessor);
-        //    return Ok(mapper.Map<IEnumerable<TrackResponse>>(result));
-        //}
-
+        }            
 
 
         [HttpGet("{id}", Name = "GetTrack")]
@@ -44,8 +34,6 @@
         }
 
 
-
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]       
         public async Task<ActionResult> Post([FromBody] CreateTrack request)
@@ -55,9 +43,11 @@
                 "GetTrack",                         //RoutName
                 new { id = id },                    // location header (https://localhost:5001/api/track/57d26b23-ea99-41fe-aee5-87529dc2ae23)
                 new { id = id, data = request }     //response body
-                );
-            
+                );            
         }
+
+
+
 
 
 
